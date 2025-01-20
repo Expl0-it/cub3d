@@ -9,8 +9,8 @@ LIBFT = $(LIBFT_PATH)/libft.a
 MLX_PATH = ./minilibx-linux
 MLX = $(MLX_PATH)/libmlx_Linux.a
 
-SRCS = $(wildcard src/*.c)
-#, $(wildcard src/*/*.c)
+SRCS = src/main.c \
+	   $(wildcard src/*/*.c)
 
 OBJS = $(SRCS:.c=.o)
 
