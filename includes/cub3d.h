@@ -16,4 +16,10 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
+enum e_err
+{
+	OK = 0,
+	MALLOC_ERR = 1,
+};
+
 #endif
