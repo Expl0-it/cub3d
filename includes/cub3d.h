@@ -22,4 +22,25 @@ enum e_err
 	MALLOC_ERR = 1,
 };
 
+typedef struct s_mlx_init
+{
+	int	bits;
+	int	len;
+	int	endian;
+}				t_mlx_init;
+
+typedef struct s_mlx
+{
+	t_mlx_init	init;
+	void		*p_mlx;
+	void		*wnd;
+	void		*img;
+	void		*data;
+}				t_mlx;
+
+typedef struct s_game
+{
+	t_mlx	mlx;
+}				t_game;
+
 #endif
