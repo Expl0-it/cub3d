@@ -16,6 +16,9 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
+# define WIDTH 800
+# define HEIGHT 600
+
 enum e_err
 {
 	OK = 0,
