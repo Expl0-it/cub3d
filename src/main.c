@@ -9,5 +9,6 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	game_init(&game);
+	run(&game);
 	return (OK);
 }
