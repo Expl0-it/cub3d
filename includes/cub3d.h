@@ -59,7 +59,7 @@ void	run(t_game *game);
 int		input(int key, void *game);
 //	update.c
 int		update(void *game);
-//
+
 //		cleanup
 //	destroy.c
 int		destroy(void *game);
