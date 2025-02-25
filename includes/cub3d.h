@@ -54,7 +54,7 @@ bool	game_init(t_game *game);
 
 //		run
 //	run.c
-bool	run(t_game *game);
+void	run(t_game *game);
 //	input.c
 int		input(int key, void *game);
 //	update.c
