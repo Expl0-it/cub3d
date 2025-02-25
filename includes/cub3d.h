@@ -43,11 +43,25 @@ typedef struct s_mlx
 
 typedef struct s_game
 {
-	t_mlx	mlx;
+	t_mlx	mlx_s;
 }				t_game;
 
 //		DECLARATIONS
+//
+//		init
 //	init.c
 bool	game_init(t_game *game);
+
+//		run
+//	run.c
+bool	run(t_game *game);
+//	input.c
+int		input(int key, void *game);
+//	update.c
+int		update(void *game);
+//
+//		cleanup
+//	destroy.c
+int		destroy(void *game);
 
 #endif
