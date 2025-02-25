@@ -46,4 +46,8 @@ typedef struct s_game
 	t_mlx	mlx;
 }				t_game;
 
+//		DECLARATIONS
+//	init.c
+bool	game_init(t_game *game);
+
 #endif
