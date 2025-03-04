@@ -56,12 +56,12 @@ bool	game_init(t_game *game);
 //	run.c
 void	run(t_game *game);
 //	input.c
-int		input(int key, void *game);
+int		input(int key, t_game *game);
 //	update.c
-int		update(void *game);
+int		update(t_game *game);
 
 //		cleanup
 //	destroy.c
-int		destroy(void *game);
+int		destroy(t_game *game);
 
 #endif
