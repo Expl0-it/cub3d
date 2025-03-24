@@ -68,9 +68,19 @@ typedef struct s_texture
 	t_mlx_val	mlx_val;
 }				t_texture;
 
+typedef struct s_tpaths
+{
+	char	*north_path;
+	char	*south_path;
+	char	*east_path;
+	char	*west_path;
+}				t_tpaths;
+
 typedef struct s_game
 {
-	t_mlx	mlx_s;
+	t_mlx		mlx_s;
+	t_player	player;
+	t_tpaths	tpaths;
 }				t_game;
 
 //		DECLARATIONS
