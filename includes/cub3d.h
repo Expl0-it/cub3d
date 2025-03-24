@@ -76,6 +76,29 @@ typedef struct s_tpaths
 	char	*west_path;
 }				t_tpaths;
 
+typedef enum e_side
+{
+	FRONT,
+	SIDE,
+};
+
+typedef struct s_ray
+{
+	float	raydirx;
+	float	raydiry;
+	float	sidedistx;
+	float	sidedisty;
+	float	deltadisx;
+	float	deltadisty;
+	float	perpwalldist;
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		side;
+	bool	hit;
+}				t_ray;
+
 typedef struct s_game
 {
 	t_mlx		mlx_s;
