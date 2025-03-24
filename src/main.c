@@ -3,8 +3,8 @@
 
 static void	default_player(t_player *player)
 {
-	player->x = WIDTH / 2;
-	player->y = HEIGHT / 2;
+	player->x = (float)WIDTH / 2;
+	player->y = (float)HEIGHT / 2;
 	player->angle = M_PI / 2;
 	player->keys.key_up = false;
 	player->keys.key_down= false;
