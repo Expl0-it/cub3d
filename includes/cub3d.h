@@ -84,8 +84,10 @@ bool	game_init(t_game *game);
 //		run
 //	run.c
 void	run(t_game *game);
-//	input.c
-int		input(int key, t_game *game);
+//	key_press.c
+int		key_press(int key, t_game *game);
+//	key_release.c
+int		key_release(int key, t_game *game);
 //	update.c
 int		update(t_game *game);
 
