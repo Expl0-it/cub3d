@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-
 static void	default_player(t_player *player)
 {
 	player->x = (float)WIDTH / 2;
@@ -20,8 +19,7 @@ static void	default_game_mlx(t_game *game)
 	game->mlx_s.wnd = NULL;
 	game->mlx_s.img = NULL;
 	game->mlx_s.data = NULL;
-	//map
-	//copy_map
+	game->map = NULL;
 	game->tpaths.north_path = NULL;
 	game->tpaths.south_path = NULL;
 	game->tpaths.east_path = NULL;
