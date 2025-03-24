@@ -68,7 +68,7 @@ typedef struct s_texture
 	int		bpp;
 	int		line_len;
 	int		endian;
-};
+}				t_texture;
 
 typedef struct s_game
 {
