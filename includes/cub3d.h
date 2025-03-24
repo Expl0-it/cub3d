@@ -25,16 +25,16 @@ enum e_err
 	MALLOC_ERR = 1,
 };
 
-typedef struct s_mlx_init
+typedef struct s_mlx_val
 {
-	int	bits;
-	int	len;
-	int	endian;
-}				t_mlx_init;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}				t_mlx_val;
 
 typedef struct s_mlx
 {
-	t_mlx_init	init;
+	t_mlx_val	init;
 	void		*p_mlx;
 	void		*wnd;
 	void		*img;
@@ -65,9 +65,6 @@ typedef struct s_texture
 	char	*data;
 	int		width;
 	int		height;
-	int		bpp;
-	int		line_len;
-	int		endian;
 }				t_texture;
 
 typedef struct s_game
