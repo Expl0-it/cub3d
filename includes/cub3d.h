@@ -16,8 +16,12 @@
 # include <X11/keysym.h>
 # include <X11/X.h>
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1280
+# define HEIGHT 720
+# define BLOCK 64
+# define COLLISION_RADIUS 10
+# define ANGLE_SPEED 0.03
+# define SPEED 3
 
 enum e_err
 {
@@ -104,6 +108,7 @@ typedef struct s_game
 	t_mlx		mlx_s;
 	t_player	player;
 	t_tpaths	tpaths;
+	char		**map;
 }				t_game;
 
 //		DECLARATIONS
