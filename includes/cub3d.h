@@ -126,6 +126,9 @@ int		key_press(int key, t_game *game);
 int		key_release(int key, t_game *game);
 //	update.c
 int		update(t_game *game);
+//	movement.c
+void	move_player(t_game *game, t_player *player);
+void	rotate_player(t_player *player);
 
 //		cleanup
 //	destroy.c
