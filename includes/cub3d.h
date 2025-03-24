@@ -84,7 +84,7 @@ typedef enum e_side
 {
 	FRONT,
 	SIDE,
-};
+}			t_side;
 
 typedef struct s_ray
 {
