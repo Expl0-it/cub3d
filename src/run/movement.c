@@ -50,3 +50,32 @@ static bool	touch(float px, float py, t_game *game)
 	return (false);
 }
 
+static void	calc_new_pos(t_player *player, int *new_x, int *new_y, int speed)
+{
+	float	sin_angle;
+	float	cos_angle;
+
+	sin_angle = sin(player->angle);
+	cos_angle = cos(player->angle);
+	if (player->keys.key_up)
+	{
+		*new_x += cos_angle * speed;
+		*new_y += sin_angle * speed;
+	}
+	if (player->keys.key_down)
+	{
+		*new_x -= cos_angle * speed;
+		*new_y -= sin_angle * speed;
+	}
+	if (player->keys.key_left)
+	{
+		*new_x += sin_angle * speed;
+		*new_y -= cos_angle * speed;
+	}
+	if (player->keys.key_right)
+	{
+		*new_x -= sin_angle * speed;
+		*new_y += cos_angle * speed;
+	}
+}
+
