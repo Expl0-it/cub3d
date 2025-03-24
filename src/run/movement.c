@@ -14,15 +14,13 @@
 
 void	rotate_player(t_player *player)
 {
-	float	angle_speed;
-	
-	angle_speed = 0.03;
 	if (player->keys.rotate_left)
-		player->angle -= angle_speed;
+		player->angle -= ANGLE_SPEED;
 	if (player->keys.rotate_right)
-		player->angle += angle_speed;
+		player->angle += ANGLE_SPEED;
 	if (player->angle > 2 * M_PI)
 		player->angle = 0;
 	if (player->angle < 0)
 		player->angle = 2 * M_PI;
 }
+
