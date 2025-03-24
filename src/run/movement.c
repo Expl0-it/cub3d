@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:23:19 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/24 13:31:14 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:50:17 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,3 +79,16 @@ static void	calc_new_pos(t_player *player, int *new_x, int *new_y, int speed)
 	}
 }
 
+void	move_player(t_game *game, t_player *player)
+{
+	int	new_x;
+	int	new_y;
+
+	new_x = player->x;
+	new_y = player->x;
+	calc_new_pos(player, &new_x, &new_y, SPEED);
+	if (!touch(new_x, player->y, game))
+		player->x = new_x;
+	if (!touch(player->x, new_y, game))
+		player->y = new_y;
+}
