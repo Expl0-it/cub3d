@@ -59,6 +59,17 @@ typedef struct s_player
 	t_keys	keys;
 }				t_player;
 
+typedef struct s_texture
+{
+	void	*img;
+	char	*data;
+	int		width;
+	int		height;
+	int		bpp;
+	int		line_len;
+	int		endian;
+};
+
 typedef struct s_game
 {
 	t_mlx	mlx_s;
