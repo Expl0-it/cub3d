@@ -51,6 +51,14 @@ typedef struct s_keys
 	bool	rotate_left;
 }				t_keys;
 
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	angle;
+	t_keys	keys;
+}				t_player;
+
 typedef struct s_game
 {
 	t_mlx	mlx_s;
