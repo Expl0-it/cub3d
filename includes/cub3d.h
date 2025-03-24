@@ -61,10 +61,11 @@ typedef struct s_player
 
 typedef struct s_texture
 {
-	void	*img;
-	char	*data;
-	int		width;
-	int		height;
+	void		*img;
+	char		*data;
+	int			width;
+	int			height;
+	t_mlx_val	mlx_val;
 }				t_texture;
 
 typedef struct s_game
