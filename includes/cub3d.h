@@ -41,6 +41,16 @@ typedef struct s_mlx
 	void		*data;
 }				t_mlx;
 
+typedef struct s_keys
+{
+	bool	key_up;
+	bool	key_down;
+	bool	key_right;
+	bool	key_left;
+	bool	rotate_right;
+	bool	rotate_left;
+}				t_keys;
+
 typedef struct s_game
 {
 	t_mlx	mlx_s;
