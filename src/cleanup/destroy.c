@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:42:00 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/04 10:15:49 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/03/27 10:36:01 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int	destroy(t_game *game)
 	mlx_destroy_window(game->mlx_s.p_mlx, game->mlx_s.wnd);
 	mlx_destroy_display(game->mlx_s.p_mlx);
 	free(game->mlx_s.p_mlx);
-	return (OK);
+	exit(OK);
 }
