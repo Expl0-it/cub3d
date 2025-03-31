@@ -129,6 +129,8 @@ int		update(t_game *game);
 //	movement.c
 void	move_player(t_game *game, t_player *player);
 void	rotate_player(t_player *player);
+//	draw.c
+void	pixel_put(t_mlx *mlx, int x, int y, int color);
 
 //		cleanup
 //	destroy.c
