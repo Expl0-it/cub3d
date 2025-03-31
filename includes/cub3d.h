@@ -82,8 +82,8 @@ typedef struct s_tpaths
 
 typedef enum e_side
 {
-	FRONT,
-	SIDE,
+	SIDE = 0,
+	FRONT = 1,
 }			t_side;
 
 typedef struct s_ray
