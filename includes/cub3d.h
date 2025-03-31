@@ -139,6 +139,7 @@ void	rotate_player(t_player *player);
 //	draw.c
 void	pixel_put(t_mlx *mlx, int x, int y, int color);
 void	clear_image(t_game *game);
+void	draw_floor_ceil(t_game *game);
 
 //		cleanup
 //	destroy.c
