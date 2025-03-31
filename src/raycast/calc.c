@@ -19,3 +19,31 @@ static void	calc_deta_dist(t_ray *ray)
 		ray->deltadisty = fabs(1.0f / ray->raydiry);
 }
 
+static void	init_step(t_ray *ray, t_player *player)
+{
+	if (ray->raydirx < 0)
+	{
+		ray->stepx = -1;
+		ray->sidedistx = ((player->x / BLOCK) - ray->mapx)
+			* ray->deltadistx;
+	}
+	else
+	{
+		ray->stepx = 1;
+		ray->sidedistx = ((ray->mapx + 1) - (player->x / BLOCK))
+			* ray->deltadistx;
+	}
+	if (ray->raydirx < 0)
+	{
+		ray->stepy = -1;
+		ray->sidedisty = ((player->y / BLOCK) - ray->mapy)
+			* ray->deltadisty;
+	}
+	else
+	{
+		ray->stepy = 1;
+		ray->sidedisty = ((ray->mapy + 1) - (player->y / BLOCK))
+			* ray->deltadisty;
+	}
+}
+
