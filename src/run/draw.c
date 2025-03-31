@@ -24,3 +24,20 @@ void	pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	clear_image(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			pixel_put(game->mlx_s, x, y, 0);
+			x++;
+		}
+		y++;
+	}
+}
