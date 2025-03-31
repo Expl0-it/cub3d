@@ -15,10 +15,10 @@ static void	default_player(t_player *player)
 
 static void	default_game_mlx(t_game *game)
 {
-	game->mlx_s.p_mlx = NULL;
-	game->mlx_s.wnd = NULL;
-	game->mlx_s.img = NULL;
-	game->mlx_s.data = NULL;
+	game->mlx_s->p_mlx = NULL;
+	game->mlx_s->wnd = NULL;
+	game->mlx_s->img = NULL;
+	game->mlx_s->data = NULL;
 	game->map = NULL;
 	game->tpaths.north_path = NULL;
 	game->tpaths.south_path = NULL;

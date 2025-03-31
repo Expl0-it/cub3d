@@ -105,7 +105,7 @@ typedef struct s_ray
 
 typedef struct s_game
 {
-	t_mlx		mlx_s;
+	t_mlx		*mlx_s;
 	t_player	player;
 	t_tpaths	tpaths;
 	char		**map;
