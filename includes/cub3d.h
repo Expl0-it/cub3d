@@ -103,11 +103,18 @@ typedef struct s_ray
 	bool	hit;
 }				t_ray;
 
+typedef struct s_colors
+{
+	int	floor_c;
+	int	ceil_c;
+}				t_colors;
+
 typedef struct s_game
 {
 	t_mlx		*mlx_s;
 	t_player	player;
 	t_tpaths	tpaths;
+	t_colors	colors;
 	char		**map;
 }				t_game;
 
