@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:23:19 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/24 16:07:43 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/03/31 10:54:29 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	rotate_player(t_player *player)
 	if (player->keys.rotate_right)
 		player->angle += ANGLE_SPEED;
 	if (player->angle > 2 * M_PI)
-		player->angle = 0;
+		player->angle -= 2 * M_PI;
 	if (player->angle < 0)
-		player->angle = 2 * M_PI;
+		player->angle += 2 * M_PI;
 }
