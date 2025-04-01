@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:07:17 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/31 22:54:37 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:04:25 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	draw_column(t_game *game, t_texture *texture, int col, t_line *line)
 	int		color;
 
 	step = (float)texture->height / (float)line->height;
-	tex_pos = (line->start_y - HEIGHT / 2 + line->height / 2) * step;
+	tex_pos = (line->start_y - (float)HEIGHT / 2 + line->height / 2) * step;
 	y = line->start_y;
 	while (y < line->end_y)
 	{
