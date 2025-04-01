@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:25:14 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/31 22:55:56 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/01 11:07:14 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,7 @@ int	update(t_game *game)
 	clear_image(game);
 	draw_floor_ceil(game);
 	raycast(game, player);
+	draw_minimap(game);
+	mlx_put_image_to_window(game->mlx_s->p_mlx, game->mlx_s->wnd, game->mlx_s->img, 0, 0);
 	return (OK);
 }
