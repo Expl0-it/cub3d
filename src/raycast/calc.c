@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   calc.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
+/*   Updated: 2025/03/31 22:54:09 by mamichal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cub3d.h"
+
 static void	init_ray(t_ray *ray, t_player *player, float ray_angle)
 {
 	ray->raydirx = cosf(ray_angle);
@@ -72,3 +86,21 @@ static void	calc_line(t_player *player, t_ray *ray, t_texture *texture, t_line *
 		line->texture_x = texture->width - 1;
 }
 
+void	calc_draw_line(t_game *game, t_player *player, \
+		float ray_angle, int col)
+{
+	t_ray		ray;
+	t_line		line;
+	t_texture	*texture;
+
+	init_ray(&ray, player, ray_angle);
+	calc_deta_dist(&ray);
+	init_step(&ray, player);
+	dda(game, &ray);
+	texture = pick_texture(game, &ray);
+	if (NULL == texture || NULL == texture->data)
+		return ;
+	line.distance = compute_distance(player, &ray, ray_angle);
+	calc_line(player, &ray, texture, &line);
+	draw_column(game, texture, col, &line);
+}
