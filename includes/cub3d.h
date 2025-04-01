@@ -72,6 +72,15 @@ typedef struct s_texture
 	t_mlx_val	mlx_val;
 }				t_texture;
 
+typedef struct s_line
+{
+	float	height;
+	float	distance;
+	int		start_y;
+	int		end_y;
+	int		texture_x;
+}				t_line;
+
 typedef struct s_tpaths
 {
 	char	*north_path;
