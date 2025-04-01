@@ -80,6 +80,14 @@ typedef struct s_tpaths
 	char	*west_path;
 }				t_tpaths;
 
+typedef struct s_tpoints
+{
+	t_texture	north;
+	t_texture	south;
+	t_texture	east;
+	t_texture	west;
+}				t_tpoints;
+
 typedef enum e_side
 {
 	SIDE = 0,
@@ -114,6 +122,7 @@ typedef struct s_game
 	t_mlx		*mlx_s;
 	t_player	player;
 	t_tpaths	tpaths;
+	t_tpoints	tpoints;
 	t_colors	colors;
 	char		**map;
 }				t_game;
