@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/01 10:55:53 by mamichal          #+#    #+#             */
+/*   Updated: 2025/04/01 11:03:43 by mamichal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static void	draw_minimap_square(t_game *game, int x, int y, int color)
@@ -20,3 +32,31 @@ static void	draw_minimap_square(t_game *game, int x, int y, int color)
 	}
 }
 
+void	draw_minimap(t_game *game)
+{
+	int	mapx;
+	int	mapy;
+	int	color;
+
+	mapy = 0;
+	while (game->map[mapy])
+	{
+		mapx = 0;
+		while (game->map[mapy][mapx])
+		{
+			if (game->map[mapy][mapx] == '1')
+				color = 0xFFFFFF;
+			else if (ft_strchr("NSEW0", game->map[mapy][mapx]))
+				color = 0x000000;
+			else
+			{
+				mapx++;
+				continue ;
+			}
+			draw_minimap_square(game, mapx, mapy, color);
+			mapx++;
+		}
+		mapy++;
+	}
+	draw_minimap_square(game, game->player.x / BLOCK, game->player.y / BLOCK, 0xFF0000)
+}

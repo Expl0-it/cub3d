@@ -22,6 +22,7 @@
 # define COLLISION_RADIUS 10
 # define ANGLE_SPEED 0.03
 # define SPEED 3
+# define MINIMAP_SQ_SIZE 4
 
 enum e_err
 {
@@ -159,6 +160,8 @@ void	pixel_put(t_mlx *mlx, int x, int y, int color);
 void	clear_image(t_game *game);
 void	draw_floor_ceil(t_game *game);
 void	draw_column(t_game *game, t_texture *texture, int col, t_line *line);
+//	minimap.c
+void	draw_minimap(t_game *game);
 
 //		raycast
 //	raycast.c
