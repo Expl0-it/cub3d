@@ -158,6 +158,19 @@ void	rotate_player(t_player *player);
 void	pixel_put(t_mlx *mlx, int x, int y, int color);
 void	clear_image(t_game *game);
 void	draw_floor_ceil(t_game *game);
+void	draw_column(t_game *game, t_texture *texture, int col, t_line *line);
+
+//		raycast
+//	raycast.c
+void	raycast(t_game *game, t_player *player);
+//	calc.c
+void	calc_draw_line(t_game *game, t_player *player, \
+			float ray_angle, int col);
+//	dda.c
+void	dda(t_game *game, t_ray *ray);
+float	compute_distance(t_player *player, t_ray *ray, float ray_angle);
+//	textures.c
+t_texture	*pick_texture(t_game *game, t_ray *ray);
 
 //		cleanup
 //	destroy.c
