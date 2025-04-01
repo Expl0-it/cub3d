@@ -47,3 +47,28 @@ static void	init_step(t_ray *ray, t_player *player)
 	}
 }
 
+static void	calc_line(t_player *player, t_ray *ray, t_texture *texture, t_line *line)
+{
+	float	wallx;
+
+	line->height = (int)(BLOCK * HEIGHT / line->distance);
+	line->start_y = (HEIGHT - line->height) / 2;
+		line->end_y = line->start_y + line->height;
+	if (line->start_y < 0)
+		line->start_y = 0;
+	if (line->end_y >= HEIGHT)
+		line->end_y = HEIGHT - 1;
+	if (ray->side == SIDE)
+		wallx = (player->y / BLOCK) + ((line->distance / BLOCK)
+			* ray->raydiry);
+	else
+		wallx = (player->x / BLOCK) + ((line->distance / BLOCK)
+			* ray->raydirx);
+	wallx = wallx - floor(wallx);
+	line->texture_x = (int)(wallx * texture->width);
+	if (line->texture_x < 0)
+		line->texture_x = 0;
+	if (line->texture_x >= texture->width)
+		line->texture_x = texture->width - 1;
+}
+
