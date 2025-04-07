@@ -41,7 +41,8 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
-	game_init(&game);
+	if (false == game_init(&game))
+		return (false);
 	run(&game);
 	return (OK);
 }
