@@ -173,6 +173,7 @@ void	calc_draw_line(t_game *game, t_player *player, \
 void	dda(t_game *game, t_ray *ray);
 float	compute_distance(t_player *player, t_ray *ray, float ray_angle);
 //	textures.c
+bool	load_all_textures(t_game *game);
 t_texture	*pick_texture(t_game *game, t_ray *ray);
 
 //		cleanup
