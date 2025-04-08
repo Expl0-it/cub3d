@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/08 16:44:50 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:50:11 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ static void	init_ray(t_ray *ray, t_player *player, float ray_angle)
 {
 	ray->raydirx = cosf(ray_angle);
 	ray->raydiry = sinf(ray_angle);
-	// NOTE: Cast to int or not?? (int)(player->x||y / BLOCK)
-	ray->mapx = player->x / BLOCK;
-	ray->mapy = player->y / BLOCK;
+	ray->mapx = (int)(player->x / BLOCK);
+	ray->mapy = (int)(player->y / BLOCK);
 }
 
 static void	calc_deta_dist(t_ray *ray)
