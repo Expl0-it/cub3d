@@ -6,7 +6,7 @@ static void	default_player(t_player *player)
 	player->y = (float)HEIGHT / 2;
 	player->angle = M_PI / 2;
 	player->keys.key_up = false;
-	player->keys.key_down= false;
+	player->keys.key_down = false;
 	player->keys.key_left = false;
 	player->keys.key_right = false;
 	player->keys.rotate_left = false;
@@ -34,7 +34,7 @@ void	fill_default_values(t_game *game)
 
 int	main(int argc, char **argv)
 {
-	t_game game;
+	t_game	game;
 
 	fill_default_values(&game);
 	// parse;

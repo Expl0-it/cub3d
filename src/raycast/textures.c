@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 22:02:48 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/01 11:28:15 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:40:26 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,28 @@
 
 static bool	load_texture(t_game *game, t_texture *texture, char *path)
 {
-	texture->img = mlx_xpm_file_to_image(game->mlx_s->p_mlx, path, &texture->width, &texture->height);
+	texture->img = mlx_xpm_file_to_image(game->mlx_s->p_mlx, path, \
+							&texture->width, &texture->height);
 	if (NULL == texture->img)
 		return (false);
-	texture->data = mlx_get_data_addr(texture->img, &texture->mlx_val.bpp, &texture->mlx_val.line_len, &texture->mlx_val.endian);
+	texture->data = mlx_get_data_addr(texture->img, &texture->mlx_val.bpp, \
+							&texture->mlx_val.line_len, &texture->mlx_val.endian);
 	return (true);
 }
 
 bool	load_all_textures(t_game *game)
 {
-	if (false == load_texture(game, &game->tpoints.north, game->tpaths.north_path))
+	if (false == load_texture(game, &game->tpoints.north, \
+					game->tpaths.north_path))
 		return (false);
-	if (false == load_texture(game, &game->tpoints.south, game->tpaths.south_path))
+	if (false == load_texture(game, &game->tpoints.south, \
+						game->tpaths.south_path))
 		return (false);
-	if (false == load_texture(game, &game->tpoints.east, game->tpaths.east_path))
+	if (false == load_texture(game, &game->tpoints.east, \
+						game->tpaths.east_path))
 		return (false);
-	if (false == load_texture(game, &game->tpoints.west, game->tpaths.west_path))
+	if (false == load_texture(game, &game->tpoints.west, \
+						game->tpaths.west_path))
 		return (false);
 	return (true);
 }
