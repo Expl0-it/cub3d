@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 22:02:48 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/08 16:40:26 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:42:03 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	load_texture(t_game *game, t_texture *texture, char *path)
 	if (NULL == texture->img)
 		return (false);
 	texture->data = mlx_get_data_addr(texture->img, &texture->mlx_val.bpp, \
-							&texture->mlx_val.line_len, &texture->mlx_val.endian);
+					&texture->mlx_val.line_len, &texture->mlx_val.endian);
 	return (true);
 }
 

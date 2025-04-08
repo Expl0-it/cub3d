@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/31 22:54:09 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:43:38 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,24 @@ static void	init_step(t_ray *ray, t_player *player)
 	}
 }
 
-static void	calc_line(t_player *player, t_ray *ray, t_texture *texture, t_line *line)
+static void	calc_line(t_player *player, t_ray *ray, \
+				t_texture *texture, t_line *line)
 {
 	float	wallx;
 
 	line->height = (int)(BLOCK * HEIGHT / line->distance);
 	line->start_y = (HEIGHT - line->height) / 2;
-		line->end_y = line->start_y + line->height;
+	line->end_y = line->start_y + line->height;
 	if (line->start_y < 0)
 		line->start_y = 0;
 	if (line->end_y >= HEIGHT)
 		line->end_y = HEIGHT - 1;
 	if (ray->side == SIDE)
 		wallx = (player->y / BLOCK) + ((line->distance / BLOCK)
-			* ray->raydiry);
+					* ray->raydiry);
 	else
 		wallx = (player->x / BLOCK) + ((line->distance / BLOCK)
-			* ray->raydirx);
+					* ray->raydirx);
 	wallx = wallx - floor(wallx);
 	line->texture_x = (int)(wallx * texture->width);
 	if (line->texture_x < 0)
