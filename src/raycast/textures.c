@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 22:02:48 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/09 19:02:56 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:24:01 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,18 @@ t_texture	*pick_texture(t_game *game, t_ray *ray)
 		else
 			return (&game->tpoints.south);
 	}
+}
+
+static void	free_texture(t_game *game, t_texture *texture)
+{
+	if (texture->img)
+		mlx_destroy_image(game->mlx_s->p_mlx, texture->img);
+}
+
+void	free_all_textures(t_game *game)
+{
+	free_texture(game, &game->tpoints.north);
+	free_texture(game, &game->tpoints.south);
+	free_texture(game, &game->tpoints.east);
+	free_texture(game, &game->tpoints.west);
 }
