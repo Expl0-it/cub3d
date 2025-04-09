@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 12:32:34 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/31 22:56:43 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:02:02 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,4 @@ void	raycast(t_game *game, t_player *player)
 		ray_angle += angle_increment;
 		column++;
 	}
-	// TODO: minimap
 }

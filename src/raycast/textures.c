@@ -6,13 +6,11 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 22:02:48 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/08 16:42:03 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:02:56 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// NOTE: fn to load single and all textures for either me or Masha
 
 static bool	load_texture(t_game *game, t_texture *texture, char *path)
 {
