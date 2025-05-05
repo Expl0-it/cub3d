@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 19:42:00 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/05 17:43:24 by mbudkevi         ###   ########.fr       */
+/*   Created: 2024/03/02 14:03:34 by mbudkevi          #+#    #+#             */
+/*   Updated: 2024/05/22 17:31:06 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	destroy(t_game *game)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	mlx_loop_end(game->mlx_s->p_mlx);
-	mlx_destroy_image(game->mlx_s->p_mlx, game->mlx_s->img);
-	mlx_destroy_window(game->mlx_s->p_mlx, game->mlx_s->wnd);
-	mlx_destroy_display(game->mlx_s->p_mlx);
-	free(game->mlx_s->p_mlx);
-	exit(OK);
+	size_t	src_len;
+
+	src_len = ft_strlen((char *)src);
+	if (src_len + 1 < size)
+	{
+		ft_memcpy(dst, src, src_len + 1);
+	}
+	else if (size != 0)
+	{
+		ft_memcpy(dst, src, size - 1);
+		dst[size - 1] = '\0';
+	}
+	return (src_len);
 }

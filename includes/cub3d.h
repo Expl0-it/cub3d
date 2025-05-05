@@ -24,6 +24,47 @@
 # define SPEED 3
 # define MINIMAP_SQ_SIZE 4
 
+typedef enum	type_id
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C
+}	type_id;
+
+typedef struct	s_element
+{
+	type_id		element_id;
+	char		*path;
+	int			rgb_letter[3];
+}	t_element;
+
+typedef struct s_keys
+{
+	bool	key_up;
+	bool	key_down;
+	bool	key_right;
+	bool	key_left;
+	bool	rotate_right;
+	bool	rotate_left;
+}				t_keys;
+
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	angle;
+	t_keys	keys;
+}				t_player;
+
+typedef struct	s_data
+{
+	t_element	elements[6];
+	char		**map;
+}	t_data;
+
 enum e_err
 {
 	OK = 0,
@@ -46,24 +87,6 @@ typedef struct s_mlx
 	void		*data;
 }				t_mlx;
 
-typedef struct s_keys
-{
-	bool	key_up;
-	bool	key_down;
-	bool	key_right;
-	bool	key_left;
-	bool	rotate_right;
-	bool	rotate_left;
-}				t_keys;
-
-typedef struct s_player
-{
-	float	x;
-	float	y;
-	float	angle;
-	t_keys	keys;
-}				t_player;
-
 typedef struct s_texture
 {
 	void		*img;
@@ -82,21 +105,21 @@ typedef struct s_line
 	int		texture_x;
 }				t_line;
 
-typedef struct s_tpaths
-{
-	char	*north_path;
-	char	*south_path;
-	char	*east_path;
-	char	*west_path;
-}				t_tpaths;
+// typedef struct s_tpaths
+// {
+// 	char	*north_path;
+// 	char	*south_path;
+// 	char	*east_path;
+// 	char	*west_path;
+// }				t_tpaths;
 
-typedef struct s_tpoints
-{
-	t_texture	north;
-	t_texture	south;
-	t_texture	east;
-	t_texture	west;
-}				t_tpoints;
+// typedef struct s_tpoints
+// {
+// 	t_texture	north;
+// 	t_texture	south;
+// 	t_texture	east;
+// 	t_texture	west;
+// }				t_tpoints;
 
 typedef enum e_side
 {
@@ -121,21 +144,26 @@ typedef struct s_ray
 	bool	hit;
 }				t_ray;
 
-typedef struct s_colors
-{
-	int	floor_c;
-	int	ceil_c;
-}				t_colors;
+// typedef struct s_colors
+// {
+// 	int	floor_c;
+// 	int	ceil_c;
+// }				t_colors;
 
 typedef struct s_game
 {
 	t_mlx		*mlx_s;
 	t_player	player;
-	t_tpaths	tpaths;
-	t_tpoints	tpoints;
-	t_colors	colors;
-	char		**map;
+	t_data		data;
+	//t_tpaths	tpaths;
+	//t_tpoints	tpoints;
+	//t_colors	colors;
+	//char		**map;
 }				t_game;
+
+//parsing
+void	print_error(char *msg);
+int		ft_color_atoi(const char *nptr);
 
 //		DECLARATIONS
 //

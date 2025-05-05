@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 19:42:00 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/05 17:43:24 by mbudkevi         ###   ########.fr       */
+/*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
+/*   Updated: 2025/05/05 17:43:39 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	destroy(t_game *game)
+int	ft_color_atoi(const char *nptr)
 {
-	mlx_loop_end(game->mlx_s->p_mlx);
-	mlx_destroy_image(game->mlx_s->p_mlx, game->mlx_s->img);
-	mlx_destroy_window(game->mlx_s->p_mlx, game->mlx_s->wnd);
-	mlx_destroy_display(game->mlx_s->p_mlx);
-	free(game->mlx_s->p_mlx);
-	exit(OK);
+	int	count;
+	int	i;
+
+	i = 0;
+	count = 0;
+	while (nptr[i] >= 9 && nptr[i] <= 13)
+		i++;
+	while (nptr[i] && ft_isdigit(nptr[i]))
+		count = (count * 10) + ((nptr[i++] - 48));
+	if (nptr[i])
+		return (-1);
+	return (count);
 }

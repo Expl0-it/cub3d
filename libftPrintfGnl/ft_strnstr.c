@@ -1,23 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 19:42:00 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/05 17:43:24 by mbudkevi         ###   ########.fr       */
+/*   Created: 2024/03/04 13:20:17 by mbudkevi          #+#    #+#             */
+/*   Updated: 2024/05/22 17:31:25 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	destroy(t_game *game)
+char	*ft_strnstr(const char *big, const char *lt, size_t len)
 {
-	mlx_loop_end(game->mlx_s->p_mlx);
-	mlx_destroy_image(game->mlx_s->p_mlx, game->mlx_s->img);
-	mlx_destroy_window(game->mlx_s->p_mlx, game->mlx_s->wnd);
-	mlx_destroy_display(game->mlx_s->p_mlx);
-	free(game->mlx_s->p_mlx);
-	exit(OK);
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	j = 0;
+	if (lt[0] == '\0')
+		return ((char *)big);
+	if (len == 0)
+		return (0);
+	while (big[i] && i < len)
+	{
+		while (big[i + j] == lt[j] && big[i + j] && i + j < len)
+		{
+			j++;
+			if (lt[j] == 0)
+				return ((char *)big + i);
+		}
+		i++;
+		j = 0;
+	}
+	return (0);
 }

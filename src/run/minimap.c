@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:55:53 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/01 11:03:43 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/05 16:31:53 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	draw_minimap(t_game *game)
 		}
 		mapy++;
 	}
-	draw_minimap_square(game, game->player.x / BLOCK, game->player.y / BLOCK, 0xFF0000)
+	draw_minimap_square(game, game->player.x / BLOCK, game->player.y / BLOCK, 0xFF0000);
 }

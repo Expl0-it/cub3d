@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy.c                                          :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 19:42:00 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/05 17:43:24 by mbudkevi         ###   ########.fr       */
+/*   Created: 2024/03/04 19:00:02 by mbudkevi          #+#    #+#             */
+/*   Updated: 2024/05/22 17:29:03 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int	destroy(t_game *game)
+void	*ft_calloc(size_t count, size_t size)
 {
-	mlx_loop_end(game->mlx_s->p_mlx);
-	mlx_destroy_image(game->mlx_s->p_mlx, game->mlx_s->img);
-	mlx_destroy_window(game->mlx_s->p_mlx, game->mlx_s->wnd);
-	mlx_destroy_display(game->mlx_s->p_mlx);
-	free(game->mlx_s->p_mlx);
-	exit(OK);
+	unsigned char	*ptr;
+
+	if (count == 0 || size == 0)
+	{
+		count = 1;
+		size = 1;
+	}
+	if (count > 2147483647 / size)
+		return (0);
+	ptr = (unsigned char *)malloc(count * size);
+	if (!ptr)
+	{
+		return (0);
+	}
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }
