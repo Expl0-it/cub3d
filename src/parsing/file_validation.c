@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/05 17:42:04 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:05:28 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,12 @@ int	open_file(char *path)
 	return (fd);
 }
 
-void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
+/*
+- split into char **
+- check there are only 3 elements
+- check they are within 0-255
+*/
+void	handle_rgb(t_data *data, char **split_line, int fd, char *line)
 {
 	char	**split_colors;
 	int		i;
@@ -73,26 +78,28 @@ void	ft_handle_colors(t_data *data, char **split_line, int fd, char *line)
 		i = 4;
 	else
 		i = 5;
-	split_colors = ft_multi_split(split_line[1], ",");
+	split_colors = ft_split(split_line[1], ',');
 	if (!split_colors[0] || !split_colors[1] || !split_colors[2] || \
 		split_colors[3])
-		// return (ft_free_split(split_colors), ft_free_split(split_line), \
-		// 		clean_up(data, fd), free(line), \
-		// 		error("Wrong color numbers in file"));
-	data->elements[i].rgb_letter[0] = ft_color_atoi(split_colors[0]);
-	data->elements[i].rgb_letter[1] = ft_color_atoi(split_colors[1]);
-	data->elements[i].rgb_letter[2] = ft_color_atoi(split_colors[2]);
+		return (ft_free_split(split_colors), ft_free_split(split_line), \
+				clean_file(data, fd), free(line), \
+				print_error("Wrong color numbers in file"));
+	data->elements[i].rgb_letter[0] = ft_rgb_atoi(split_colors[0]);
+	data->elements[i].rgb_letter[1] = ft_rgb_atoi(split_colors[1]);
+	data->elements[i].rgb_letter[2] = ft_rgb_atoi(split_colors[2]);
 	if (data->elements[i].rgb_letter[0] > 255 \
 	|| data->elements[i].rgb_letter[1] > 255 \
 	|| data->elements[i].rgb_letter[2] > 255 \
 	|| data->elements[i].rgb_letter[0] < 0 || data->elements[i].rgb_letter[1] < 0 \
 	|| data->elements[i].rgb_letter[2] < 0)
-		// return (ft_free_split(split_colors), ft_free_split(split_line), \
-		// 	clean_up(data, fd), free(line), error("Wrong color number", 0));
+		return (ft_free_split(split_colors), ft_free_split(split_line), \
+			clean_file(data, fd), free(line), print_error("Wrong color number"));
 	ft_free_split(split_colors);
 }
 
-int	add_single_path(t_data *data, char **split_line, int fd, char *line)
+/*check if paths have already been assigned to our data struct, if not -> assign*/
+
+int	add_path(t_data *data, char **split_line, int fd, char *line)
 {
 	if (ft_strncmp(split_line[0], "NO", ft_strlen(split_line[0])) == 0 && !data->elements[0].path)
 		return (data->elements[0].path = ft_strdup(split_line[1]), 0);
@@ -104,30 +111,66 @@ int	add_single_path(t_data *data, char **split_line, int fd, char *line)
 		return (data->elements[3].path = ft_strdup(split_line[1]), 0);
 	else if ((ft_strncmp(split_line[0], "F", ft_strlen(split_line[0])) == 0 \
 	&& data->elements[4].rgb_letter[0] == -1))
-		ft_handle_colors(data, split_line, fd, line);
+		handle_rgb(data, split_line, fd, line);
 	else if (ft_strncmp(split_line[0], "C", ft_strlen(split_line[0])) == 0 \
 	&& data->elements[5].rgb_letter[0] == -1)
-		ft_handle_colors(data, split_line, fd, line);
+		handle_rgb(data, split_line, fd, line);
 	else
-		// return (ft_free_split(split_line), clean_up(data, fd), \
-		// free(line), error("Wrong id or a duplicate", 0), -1);
+		return (ft_free_split(split_line), clean_file(data, fd), \
+		free(line), print_error("Wrong id or a duplicate"), -1);
 	return (0);
 }
 
-int	add_path(t_data *data, char **split_res, int fd, char *line)
+/*
+- skip empty line,
+- check if it is a map
+- check there are exactly 2 arguments 
+*/
+int	check_path(t_data *data, char **split_res, int fd, char *line)
 {
 	if (!split_res[0])
 		return (ft_free_split(split_res), 0);
 	if (ft_strchr(split_res[0], '1'))
 		return (ft_free_split(split_res), -1);
 	if (!split_res[1] || split_res[2])
-	// update
-		return 1;
-	// 	return (ft_free_split(split_res), clean_up(data, fd), \
-	// free(line), error("Wrong elements in file", 0), 0);
-	add_single_path(data, split_res, fd, line);
+		return (ft_free_split(split_res), clean_file(data, fd), \
+		free(line), print_error("Wrong elements in file"), -1);
+	add_path(data, split_res, fd, line);
 	ft_free_split(split_res);
 	return (0);
+}
+
+/*
+- check paths for textures exist
+- check map extension
+- check colors exist
+- check file can be open and read
+*/
+
+void	validate_data(t_data *data, char *line, int fd)
+{
+	int	i;
+	int	check_file;
+
+	i = -1;
+	while (++i <= 5)
+	{
+		if (i <= 3 && !data->elements[i].path)
+			return (clean_file(data, fd), free(line), \
+				print_error("Missing texture"));
+		else if (i <= 3 && check_map_ext(data->elements[i].path, ".xpm"))
+			return (clean_file(data, fd), free(line), \
+				print_error("Wrong file format"));
+		else if (i >= 4 && data->elements[i].rgb_letter[0] == -1)
+			return (clean_file(data, fd), free(line), print_error("Color is missing!"));
+		else if (i <= 3)
+		{
+			check_file = open(data->elements[i].path, O_RDONLY);
+			if (check_file == -1)
+				return (clean_file(data, fd), free(line), print_error("Couldn't open the file"));
+			close(check_file);
+		}
+	}
 }
 
 void	init_validate_data(char *path, t_data *data)
@@ -142,11 +185,11 @@ void	init_validate_data(char *path, t_data *data)
 	while (line)
 	{
 		split_result = ft_multi_split(line, " \n");
-		if (add_path(data, split_result, fd, line) == -1)
+		if (check_path(data, split_result, fd, line) == -1)
 			break ;
 		free(line);
 		line = get_next_line(fd);
 	}
-	//validate_data(data, line, fd);
+	validate_data(data, line, fd);
 	//create_map(data, line, fd);
 }

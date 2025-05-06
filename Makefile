@@ -7,7 +7,7 @@ RM = rm -fr
 #LIBFT_PATH = ./libft
 LIBFTGNL_PATH = ./libftPrintfGnl
 #LIBFT = $(LIBFT_PATH)/libft.a
-LIBGTGNL = $(LIBFTGNL_PATH)/libftPrintfGnl.a
+LIBFTGNL = $(LIBFTGNL_PATH)/libft.a
 MLX_PATH = ./minilibx-linux
 MLX = $(MLX_PATH)/libmlx_Linux.a
 

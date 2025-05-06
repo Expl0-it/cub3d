@@ -3,6 +3,7 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include <stdlib.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -105,21 +106,21 @@ typedef struct s_line
 	int		texture_x;
 }				t_line;
 
-// typedef struct s_tpaths
-// {
-// 	char	*north_path;
-// 	char	*south_path;
-// 	char	*east_path;
-// 	char	*west_path;
-// }				t_tpaths;
+typedef struct s_tpaths
+{
+	char	*north_path;
+	char	*south_path;
+	char	*east_path;
+	char	*west_path;
+}				t_tpaths;
 
-// typedef struct s_tpoints
-// {
-// 	t_texture	north;
-// 	t_texture	south;
-// 	t_texture	east;
-// 	t_texture	west;
-// }				t_tpoints;
+typedef struct s_tpoints
+{
+	t_texture	north;
+	t_texture	south;
+	t_texture	east;
+	t_texture	west;
+}				t_tpoints;
 
 typedef enum e_side
 {
@@ -144,26 +145,30 @@ typedef struct s_ray
 	bool	hit;
 }				t_ray;
 
-// typedef struct s_colors
-// {
-// 	int	floor_c;
-// 	int	ceil_c;
-// }				t_colors;
+typedef struct s_colors
+{
+	int	floor_c;
+	int	ceil_c;
+}				t_colors;
 
 typedef struct s_game
 {
 	t_mlx		*mlx_s;
 	t_player	player;
 	t_data		data;
-	//t_tpaths	tpaths;
-	//t_tpoints	tpoints;
-	//t_colors	colors;
-	//char		**map;
+	t_tpaths	tpaths;
+	t_tpoints	tpoints;
+	t_colors	colors;
+	char		**map;
 }				t_game;
 
 //parsing
 void	print_error(char *msg);
-int		ft_color_atoi(const char *nptr);
+void	print_error_exit(char *msg);
+int		ft_rgb_atoi(const char *nptr);
+void	clean_file(t_data *data, int fd);
+void	init_validate_data(char *path, t_data *data);
+int		add_data_to_game(t_game *game);
 
 //		DECLARATIONS
 //
