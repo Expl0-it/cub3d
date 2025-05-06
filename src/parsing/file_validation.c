@@ -6,12 +6,11 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/06 16:05:28 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:05:00 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "libft.h"
 
 /*
 give initial values to our elements(NO, SO, WE, EA, F, C)
@@ -144,7 +143,7 @@ int	check_path(t_data *data, char **split_res, int fd, char *line)
 - check paths for textures exist
 - check map extension
 - check colors exist
-- check file can be open and read
+- check file can be opened and read
 */
 
 void	validate_data(t_data *data, char *line, int fd)
