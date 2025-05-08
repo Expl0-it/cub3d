@@ -46,14 +46,14 @@ void	fill_default_values(t_game *game)
 int	main(int argc, char **argv)
 {
 	t_game	game;
+
 	if (argc != 2)
 		print_error_exit("Error!\nPlease check the amount of the args!");
 	fill_default_values(&game);
-	// parse;
-
-	(void)argv;
-	if (false == game_init(&game))
-		return (false);
-	run(&game);
+	init_validate_data(argv[1], &game.data);
+	add_data_to_game(&game);
+	// if (false == game_init(&game))
+	// 	return (false);
+	// run(&game);
 	return (OK);
 }
