@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/07 13:44:08 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:35:13 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,14 @@ bool	map_open_h(char **map)
 }
 
 /*
-- get total number of columns
+- get total number of columns based on the longest row
 - iterate over each of them
 - get 1st and last row for each column
-- skip first spaces
+- skip leading spaces at top
 - check if the first char is 1
-
+- skip invalid bottom rows
+- skip spaces and \0 at the bottom
+- check if the last char is 1
 */
 
 bool	map_open_v(char **map)
@@ -127,7 +129,7 @@ bool	map_is_closed(char **map)
 - check there are only characters we expect
 - check amount of players
 */
-void	validate_chars(t_data *data, int fd, char *map)
+void	validate_chars_players(t_data *data, int fd, char *map)
 {
 	int	i;
 	int	j;
@@ -152,13 +154,38 @@ void	validate_chars(t_data *data, int fd, char *map)
 		print_error("Too many or too few players"));
 }
 
+void	fill_empty_spots(char **map)
+{
+	int	i;
+	int	j;
+	int	k;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		k = ft_strlen(map[i]) - 1;
+		while (map[i][j] == ' ' && map[i][j])
+			j++;
+		while (map[i][k] == ' ' && k > j)
+			k--;
+		while (map[i][j] && j < k)
+		{
+			if (map[i][j] == ' ')
+				map[i][j] = '1';
+			j++;
+		}
+		i++;
+	}
+}
+
 /*
 - read the rest of file(map) and append each line to map
 - check characters
 - split map
 - assign to our structure
 */
-void	create_map(t_data *data, char *line, int fd)
+void	assign_map(t_data *data, char *line, int fd)
 {
 	char	*map;
 	char	*tmp_map;
@@ -173,10 +200,13 @@ void	create_map(t_data *data, char *line, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	validate_chars(data, fd, map);
+	validate_chars_players(data, fd, map);
 	close(fd);
 	split_map = ft_split(map, '\n');
 	free(map);
+	//clean up? and exit?
+	if (!map_is_closed(split_map))
+		print_error("Map isn't closed!");
+	fill_empty_spots(split_map);
 	data->map = split_map;
-	//validate_map(data);
 }

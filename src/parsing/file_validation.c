@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/06 17:05:00 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/08 13:05:40 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,5 +190,5 @@ void	init_validate_data(char *path, t_data *data)
 		line = get_next_line(fd);
 	}
 	validate_data(data, line, fd);
-	//create_map(data, line, fd);
+	assign_map(data, line, fd);
 }
