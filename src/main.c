@@ -59,7 +59,7 @@ int	main(int argc, char **argv)
 	add_data_to_game(&game);
 	if (false == game_init(&game)) {
 		print_error("game_init() failed\n");
-		return (false);
+		exit(EXIT_FAILURE);
 	}
 	run(&game);
 	return (OK);
