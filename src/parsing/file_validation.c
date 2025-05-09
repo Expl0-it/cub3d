@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/08 13:05:40 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:34:55 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,7 @@ int	check_path(t_data *data, char **split_res, int fd, char *line)
 	if (ft_strchr(split_res[0], '1'))
 		return (ft_free_split(split_res), -1);
 	if (!split_res[1] || split_res[2])
-		return (ft_free_split(split_res), clean_file(data, fd), \
-		free(line), print_error("Wrong elements in file"), -1);
+		return (ft_free_split(split_res), print_error("Wrong elements in file"), -1);
 	add_path(data, split_res, fd, line);
 	ft_free_split(split_res);
 	return (0);
@@ -156,17 +155,18 @@ void	validate_data(t_data *data, char *line, int fd)
 	{
 		if (i <= 3 && !data->elements[i].path)
 			return (clean_file(data, fd), free(line), \
-				print_error("Missing texture"));
+				print_error("Missing texture\n"));
 		else if (i <= 3 && check_map_ext(data->elements[i].path, ".xpm"))
 			return (clean_file(data, fd), free(line), \
-				print_error("Wrong file format"));
+				print_error("Wrong file format\n"));
 		else if (i >= 4 && data->elements[i].rgb_letter[0] == -1)
-			return (clean_file(data, fd), free(line), print_error("Color is missing!"));
+			return (clean_file(data, fd), free(line), print_error("Color is missing!\n"));
 		else if (i <= 3)
 		{
 			check_file = open(data->elements[i].path, O_RDONLY);
 			if (check_file == -1)
-				return (clean_file(data, fd), free(line), print_error("Couldn't open the file"));
+				print_error("Couldn't open the file\n");
+				//return (clean_file(data, fd), free(line), print_error("Couldn't open the file\n"));
 			close(check_file);
 		}
 	}

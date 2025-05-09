@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/08 13:35:13 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:10:30 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ void	assign_map(t_data *data, char *line, int fd)
 	free(map);
 	//clean up? and exit?
 	if (!map_is_closed(split_map))
-		print_error("Map isn't closed!");
+		print_error("Map isn't closed!\n");
 	fill_empty_spots(split_map);
 	data->map = split_map;
 }
