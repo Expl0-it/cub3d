@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:07:17 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/01 11:04:25 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/09 16:34:16 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	draw_column(t_game *game, t_texture *texture, int col, t_line *line)
 	{
 		tex_y = (int)tex_pos & (texture->height - 1);
 		color = *(int *)(texture->data + (tex_y * texture->mlx_val.line_len) + line->texture_x * (texture->mlx_val.bpp / 8));
-		pixel_put(game->mlx_s->p_mlx, col, y, color);
+		//here
+		//pixel_put(game->mlx_s->p_mlx, col, y, color);
+		pixel_put(game->mlx_s, col, y, color);
 		tex_pos += step;
 		y++;
 	}
