@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/13 14:09:14 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:14:27 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	calc_draw_line(t_game *game, t_player *player, \
 	t_texture	*texture;
 
 	init_ray(&ray, player, ray_angle);
-	calc_deta_dist(&ray);
+	calc_delta_dist(&ray);
 	init_step(&ray, player);
 	dda(game, &ray);
 	texture = pick_texture(game, &ray);
