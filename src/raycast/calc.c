@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/13 14:14:27 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:40:04 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	init_step(t_ray *ray, t_player *player)
 		ray->sidedistx = ((ray->mapx + 1) - (player->x / BLOCK))
 			* ray->deltadistx;
 	}
-	if (ray->raydirx < 0)
+	if (ray->raydiry < 0)
 	{
 		ray->stepy = -1;
 		ray->sidedisty = ((player->y / BLOCK) - ray->mapy)
