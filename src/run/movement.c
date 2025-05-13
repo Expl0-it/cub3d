@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:23:19 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/13 13:45:31 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:58:17 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ static void	calc_new_pos(t_player *player, int *new_x, int *new_y, int speed)
 
 	sin_angle = sin(player->angle);
 	cos_angle = cos(player->angle);
-	if (player->keys.key_up)
+	if (true == player->keys.key_up)
 	{
 		*new_x += cos_angle * speed;
 		*new_y += sin_angle * speed;
 	}
-	if (player->keys.key_down)
+	if (true == player->keys.key_down)
 	{
 		*new_x -= cos_angle * speed;
 		*new_y -= sin_angle * speed;
 	}
-	if (player->keys.key_left)
+	if (true == player->keys.key_left)
 	{
 		*new_x += sin_angle * speed;
 		*new_y -= cos_angle * speed;
 	}
-	if (player->keys.key_right)
+	if (true == player->keys.key_right)
 	{
 		*new_x -= sin_angle * speed;
 		*new_y += cos_angle * speed;
