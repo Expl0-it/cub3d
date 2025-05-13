@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:23:19 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/31 10:54:29 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 11:43:40 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	touch(float px, float py, t_game *game)
 		mapx = (int)((px - COLLISION_RADIUS) / BLOCK);
 		while (mapx <= x1)
 		{
-			if (mapy < 0 || game->map[mapy] == NULL
+			if (mapy < 0 || game->map[mapy] == NULL || mapx < 0
 				|| game->map[mapy][mapx] == '\0'
 				|| game->map[mapy][mapx] == '1')
 				return (true);
