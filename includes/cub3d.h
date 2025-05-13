@@ -25,6 +25,12 @@
 # define SPEED 3
 # define MINIMAP_SQ_SIZE 8
 
+// NOTE: KEYCODES
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+
 typedef enum	type_id
 {
 	NO,
