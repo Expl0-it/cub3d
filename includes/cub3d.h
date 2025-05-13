@@ -23,7 +23,7 @@
 # define COLLISION_RADIUS 10
 # define ANGLE_SPEED 0.03
 # define SPEED 3
-# define MINIMAP_SQ_SIZE 4
+# define MINIMAP_SQ_SIZE 8
 
 typedef enum	type_id
 {
