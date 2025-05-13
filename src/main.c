@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+void	print_error(char *msg)
+{
+	printf("%s", msg);
+}
+
+void	print_error_exit(char *msg)
+{
+	printf("%s", msg);
+	exit(1);
+}
+
 static void	default_player(t_player *player)
 {
 	player->x = -1;
@@ -15,7 +26,12 @@ static void	default_player(t_player *player)
 
 static void	default_game_mlx(t_game *game)
 {
-	game->mlx_s->p_mlx = NULL;
+	game->mlx_s = malloc(sizeof(t_mlx));
+	if (!game->mlx_s)
+	{
+		perror("Failed to allocate mlx_s");
+		exit(EXIT_FAILURE);
+	}
 	game->mlx_s->wnd = NULL;
 	game->mlx_s->img = NULL;
 	game->mlx_s->data = NULL;
@@ -36,13 +52,16 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	if (argc != 2)
+		print_error_exit("Error!\nPlease check the amount of the args!");
 	fill_default_values(&game);
-	// parse;
-
-	(void)argc;
-	(void)argv;
-	if (false == game_init(&game))
-		return (false);
+	init_validate_data(argv[1], &game.data);
+	add_data_to_game(&game);
+	find_player_spawn(&game, &game.player);
+	if (false == game_init(&game)) {
+		print_error("game_init() failed\n");
+		exit(EXIT_FAILURE);
+	}
 	run(&game);
 	return (OK);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dda.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 21:44:27 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/08 16:40:30 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:46:03 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	dda(t_game *game, t_ray *ray)
 	ray->hit = false;
 	while (false == ray->hit)
 	{
-		if (ray->sidedistx < ray->deltadisty)
+		if (ray->sidedistx < ray->sidedisty)
 		{
 			ray->sidedistx += ray->deltadistx;
 			ray->mapx += ray->stepx;
-			ray->side = FRONT;
+			ray->side = SIDE;
 		}
 		else
 		{
 			ray->sidedisty += ray->deltadisty;
 			ray->mapy += ray->stepy;
-			ray->side = SIDE;
+			ray->side = FRONT;
 		}
 		if (game->map[ray->mapy][ray->mapx] == '1')
 			ray->hit = true;

@@ -3,6 +3,7 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include <stdlib.h>
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -22,7 +23,54 @@
 # define COLLISION_RADIUS 10
 # define ANGLE_SPEED 0.03
 # define SPEED 3
-# define MINIMAP_SQ_SIZE 4
+# define MINIMAP_SQ_SIZE 8
+
+// NOTE: KEYCODES
+# define W 119
+# define S 115
+# define A 97
+# define D 100
+
+typedef enum	type_id
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C
+}	type_id;
+
+typedef struct	s_element
+{
+	type_id		element_id;
+	char		*path;
+	int			rgb_letter[3];
+}	t_element;
+
+typedef struct s_keys
+{
+	bool	key_up;
+	bool	key_down;
+	bool	key_right;
+	bool	key_left;
+	bool	rotate_right;
+	bool	rotate_left;
+}				t_keys;
+
+typedef struct s_player
+{
+	float	x;
+	float	y;
+	float	angle;
+	t_keys	keys;
+}				t_player;
+
+typedef struct	s_data
+{
+	t_element	elements[6];
+	char		**map;
+}	t_data;
 
 enum e_err
 {
@@ -45,24 +93,6 @@ typedef struct s_mlx
 	void		*img;
 	void		*data;
 }				t_mlx;
-
-typedef struct s_keys
-{
-	bool	key_up;
-	bool	key_down;
-	bool	key_right;
-	bool	key_left;
-	bool	rotate_right;
-	bool	rotate_left;
-}				t_keys;
-
-typedef struct s_player
-{
-	float	x;
-	float	y;
-	float	angle;
-	t_keys	keys;
-}				t_player;
 
 typedef struct s_texture
 {
@@ -131,11 +161,22 @@ typedef struct s_game
 {
 	t_mlx		*mlx_s;
 	t_player	player;
+	t_data		data;
 	t_tpaths	tpaths;
 	t_tpoints	tpoints;
 	t_colors	colors;
 	char		**map;
 }				t_game;
+
+//parsing
+void	print_error(char *msg);
+void	print_error_exit(char *msg);
+int		ft_rgb_atoi(const char *nptr);
+void	clean_file(t_data *data, int fd);
+void	init_validate_data(char *path, t_data *data);
+int		add_data_to_game(t_game *game);
+void	assign_map(t_data *data, char *line, int fd);
+void	find_player_spawn(t_game *game, t_player *player);
 
 //		DECLARATIONS
 //

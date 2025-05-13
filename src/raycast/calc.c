@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/08 16:50:11 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:40:04 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static void	init_ray(t_ray *ray, t_player *player, float ray_angle)
 	ray->mapy = (int)(player->y / BLOCK);
 }
 
-static void	calc_deta_dist(t_ray *ray)
+static void	calc_delta_dist(t_ray *ray)
 {
 	if (0 == ray->raydirx)
 		ray->deltadistx = 1e30f;
 	else
-		ray->deltadistx = fabs(1.0f / ray->raydirx);
+		ray->deltadistx = fabsf(1.0f / ray->raydirx);
 	if (0 == ray->raydiry)
 		ray->deltadisty = 1e30f;
 	else
-		ray->deltadisty = fabs(1.0f / ray->raydiry);
+		ray->deltadisty = fabsf(1.0f / ray->raydiry);
 }
 
 static void	init_step(t_ray *ray, t_player *player)
@@ -46,7 +46,7 @@ static void	init_step(t_ray *ray, t_player *player)
 		ray->sidedistx = ((ray->mapx + 1) - (player->x / BLOCK))
 			* ray->deltadistx;
 	}
-	if (ray->raydirx < 0)
+	if (ray->raydiry < 0)
 	{
 		ray->stepy = -1;
 		ray->sidedisty = ((player->y / BLOCK) - ray->mapy)
@@ -94,7 +94,7 @@ void	calc_draw_line(t_game *game, t_player *player, \
 	t_texture	*texture;
 
 	init_ray(&ray, player, ray_angle);
-	calc_deta_dist(&ray);
+	calc_delta_dist(&ray);
 	init_step(&ray, player);
 	dda(game, &ray);
 	texture = pick_texture(game, &ray);

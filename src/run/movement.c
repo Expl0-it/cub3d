@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 13:23:19 by mamichal          #+#    #+#             */
-/*   Updated: 2025/03/31 10:54:29 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:58:17 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static bool	touch(float px, float py, t_game *game)
 		mapx = (int)((px - COLLISION_RADIUS) / BLOCK);
 		while (mapx <= x1)
 		{
-			if (mapy < 0 || game->map[mapy] == NULL
+			if (mapy < 0 || game->map[mapy] == NULL || mapx < 0
 				|| game->map[mapy][mapx] == '\0'
 				|| game->map[mapy][mapx] == '1')
 				return (true);
@@ -45,22 +45,22 @@ static void	calc_new_pos(t_player *player, int *new_x, int *new_y, int speed)
 
 	sin_angle = sin(player->angle);
 	cos_angle = cos(player->angle);
-	if (player->keys.key_up)
+	if (true == player->keys.key_up)
 	{
 		*new_x += cos_angle * speed;
 		*new_y += sin_angle * speed;
 	}
-	if (player->keys.key_down)
+	if (true == player->keys.key_down)
 	{
 		*new_x -= cos_angle * speed;
 		*new_y -= sin_angle * speed;
 	}
-	if (player->keys.key_left)
+	if (true == player->keys.key_left)
 	{
 		*new_x += sin_angle * speed;
 		*new_y -= cos_angle * speed;
 	}
-	if (player->keys.key_right)
+	if (true == player->keys.key_right)
 	{
 		*new_x -= sin_angle * speed;
 		*new_y += cos_angle * speed;
@@ -73,7 +73,7 @@ void	move_player(t_game *game, t_player *player)
 	int	new_y;
 
 	new_x = player->x;
-	new_y = player->x;
+	new_y = player->y;
 	calc_new_pos(player, &new_x, &new_y, SPEED);
 	if (!touch(new_x, player->y, game))
 		player->x = new_x;
