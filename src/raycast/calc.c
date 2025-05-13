@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 13:03:10 by mamichal          #+#    #+#             */
-/*   Updated: 2025/04/08 16:50:11 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:09:14 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ static void	init_ray(t_ray *ray, t_player *player, float ray_angle)
 	ray->mapy = (int)(player->y / BLOCK);
 }
 
-static void	calc_deta_dist(t_ray *ray)
+static void	calc_delta_dist(t_ray *ray)
 {
 	if (0 == ray->raydirx)
 		ray->deltadistx = 1e30f;
 	else
-		ray->deltadistx = fabs(1.0f / ray->raydirx);
+		ray->deltadistx = fabsf(1.0f / ray->raydirx);
 	if (0 == ray->raydiry)
 		ray->deltadisty = 1e30f;
 	else
-		ray->deltadisty = fabs(1.0f / ray->raydiry);
+		ray->deltadisty = fabsf(1.0f / ray->raydiry);
 }
 
 static void	init_step(t_ray *ray, t_player *player)
