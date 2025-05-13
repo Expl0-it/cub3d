@@ -57,6 +57,7 @@ int	main(int argc, char **argv)
 	fill_default_values(&game);
 	init_validate_data(argv[1], &game.data);
 	add_data_to_game(&game);
+	find_player_spawn(&game, &game.player);
 	if (false == game_init(&game)) {
 		print_error("game_init() failed\n");
 		exit(EXIT_FAILURE);

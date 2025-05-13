@@ -170,6 +170,7 @@ void	clean_file(t_data *data, int fd);
 void	init_validate_data(char *path, t_data *data);
 int		add_data_to_game(t_game *game);
 void	assign_map(t_data *data, char *line, int fd);
+void	find_player_spawn(t_game *game, t_player *player);
 
 //		DECLARATIONS
 //
