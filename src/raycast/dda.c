@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 21:44:27 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/06 15:22:45 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/13 12:00:57 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	dda(t_game *game, t_ray *ray)
 		{
 			ray->sidedistx += ray->deltadistx;
 			ray->mapx += ray->stepx;
-			ray->side = FRONT;
+			ray->side = SIDE;
 		}
 		else
 		{
 			ray->sidedisty += ray->deltadisty;
 			ray->mapy += ray->stepy;
-			ray->side = SIDE;
+			ray->side = FRONT;
 		}
 		if (game->map[ray->mapy][ray->mapx] == '1')
 			ray->hit = true;
