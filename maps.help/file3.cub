@@ -1,0 +1,8 @@
+NO ./textures.help/north.xpm
+SO ./textures.help/south.xpm
+WE ./textures.help/west.xpm
+EA ./textures.help/east.xpm
+
+111111111111111
+1000000000000W1
+111111111111111
