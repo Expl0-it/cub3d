@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 12:45:04 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:13:21 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	clean_file(t_data *data, int fd)
 	// 	free(line);
 	// 	line = get_next_line(fd);
 	// }
+	free_gnl_stash();
 	if (fd != -1)
 		close(fd);
 	if (data->map)

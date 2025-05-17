@@ -6,11 +6,17 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:04:16 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/03/19 15:40:41 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:15:46 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+char	**get_stash_reference(void)
+{
+	static char	*stash = NULL;
+	return (&stash);
+}
 
 static char	*fill_stash(int fd, char *stash, char *buf)
 {
@@ -56,19 +62,31 @@ static char	*process_stash(char *line)
 
 char	*get_next_line(int fd)
 {
-	static char	*stash = NULL;
+	char		**stash;
 	char		*line;
 	char		*buf;
 
+	stash = get_stash_reference();
 	if (fd < 0)
 		return (NULL);
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
-	line = fill_stash(fd, stash, buf);
+	line = fill_stash(fd, *stash, buf);
 	free(buf);
 	if (!line)
 		return (NULL);
-	stash = process_stash(line);
+	*stash = process_stash(line);
 	return (line);
+}
+
+void	free_gnl_stash(void)
+{
+	char **stash = get_stash_reference();
+
+	if (stash && *stash)
+	{
+		free(*stash);
+		*stash = NULL;
+	}
 }

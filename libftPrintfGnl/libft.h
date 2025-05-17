@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 12:07:07 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/05 17:36:10 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:12:11 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int		print_hexadecimal(unsigned int number, char symbol);
 int		print_unsigned_d(unsigned int number);
 int		print_pointer(void *ptr);
 int		ft_printf(const char *format, ...);
+void	free_gnl_stash(void);
+char	**get_stash_reference(void);
 char	*get_next_line(int fd);
 char	**ft_multi_split(char const *s, char *delim);
 void	ft_free_split(char **splitted);

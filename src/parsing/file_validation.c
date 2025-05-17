@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 13:03:12 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:20:31 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,10 @@ void	init_validate_data(char *path, t_data *data)
 	{
 		split_result = ft_multi_split(line, " \n");
 		if (check_path(data, split_result) == -1)
+		{
+			ft_free_split(split_result);
 			break ;
+		}
 		free(line);
 		line = get_next_line(fd);
 	}
