@@ -5,9 +5,10 @@ void	print_error(char *msg)
 	printf("%s", msg);
 }
 
-void	print_error_exit(char *msg)
+void	clean_and_exit(char *msg, t_data *data, int fd)
 {
-	printf("%s", msg);
+	print_error(msg);
+	clean_file(data, fd);
 	exit(1);
 }
 
@@ -53,7 +54,10 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (argc != 2)
-		print_error_exit("Error!\nPlease check the amount of the args!");
+	{
+		print_error("Error!\nPlease check the amount of the args!\n");
+		exit(1);
+	}
 	fill_default_values(&game);
 	init_validate_data(argv[1], &game.data);
 	add_data_to_game(&game);

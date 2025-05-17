@@ -6,66 +6,11 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 14:46:36 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:59:26 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	count_rows(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-		i++;
-	return (i);
-}
-
-int	count_columns(char **arr)
-{
-	int	i;
-	int	j;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (arr[i])
-	{
-		j = 0;
-		while (arr[i][j])
-			j++;
-		if (j > count)
-			count = j;
-		i++;
-	}
-	return (count);
-}
-
-bool	has_valid_border(char **map)
-{
-	int	rows;
-	int	cols;
-	int	i;
-
-	rows = count_rows(map);
-	cols = ft_strlen(map[0]);
-	i = 0;
-	while (i < cols)
-	{
-		if (map[0][i] != '1' || map[rows - 1][i] != '1')
-			return (false);
-		i++;
-	}
-	i = 0;
-	while (i < rows)
-	{
-		if (map[i][0] != '1' || map[i][cols - 1] != '1')
-			return (false);
-		i++;
-	}
-	return (true);
-}
 
 void	pad_map_rows(char **map)
 {
@@ -187,18 +132,10 @@ void	assign_map(t_data *data, char *line, int fd)
 	char	**map_copy;
 
 	if (!line)
-	{
-		print_error("Empty or invalid map\n");
-		clean_file(data, fd);
-		exit(1);
-	}
+		clean_and_exit("Empty or invalid map\n", data, fd);
 	map = ft_strdup("");
 	if (!map)
-	{
-		print_error("Memory allocation failed\n");
-		close(fd);
-		exit(1);
-	}
+		clean_and_exit("Memory allocation at assign map has failed\n", data, fd);
 	while (line)
 	{
 		tmp_map = map;
@@ -209,9 +146,8 @@ void	assign_map(t_data *data, char *line, int fd)
 	}
 	if (validate_chars_players(map) == -1)
 	{
-		clean_file(data, fd);
 		free(map);
-		exit(1);
+		clean_and_exit("Validation chars has failed\n", data, fd);
 	}
 	close(fd);
 	split_map = ft_split(map, '\n');
@@ -219,15 +155,11 @@ void	assign_map(t_data *data, char *line, int fd)
 	free(map);
 	pad_map_rows(map_copy);
 	replace_spaces_with_walls(map_copy);
-
-	print_map(map_copy);
 	if (!has_valid_border(map_copy))
 	{
-		print_error("Map doesn't have valid borders!\n");
 		ft_free_split(map_copy);
 		ft_free_split(split_map);
-		clean_file(data, -1);
-		exit(1);
+		clean_and_exit("Map doesn't have valid borders!\n", data, fd);
 	}
 	fill_empty_spots(split_map);
 	data->map = split_map;
