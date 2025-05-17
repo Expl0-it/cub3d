@@ -1,7 +1,7 @@
-NO textures/matrix.xpm
-SO textures/matrix.xpm
-WE textures/matrix.xpm
-EA textures/matrix.xpm
+NO ./textures.help/north.xpm
+SO ./textures.help/south.xpm
+WE ./textures.help/west.xpm
+EA ./textures.help/east.xpm
 
 F 0,0,0
 C 0,0,0

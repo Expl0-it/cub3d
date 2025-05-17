@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/09 13:34:55 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 13:03:12 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_elements(t_data *data)
 	int	i;
 
 	i = 0;
+	data->map = NULL;
 	data->elements[0].element_id = NO;
 	data->elements[1].element_id = SO;
 	data->elements[2].element_id = WE;
@@ -41,7 +42,7 @@ void	init_elements(t_data *data)
 
 /*check extension of the file. make sure it is a ".cub"*/
 
-int	check_map_ext(char *str, char *ext)
+int	check_ext(char *str, char *ext)
 {
 	size_t	len;
 
@@ -55,11 +56,17 @@ int	open_file(char *path)
 {
 	int	fd;
 
-	if (check_map_ext(path, ".cub") != 0)
-		print_error("Wrong file format");
+	if (check_ext(path, ".cub") != 0)
+	{
+		print_error("Wrong file format\n");
+		return (-1);
+	}
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
-		print_error("Invalid file descriptor");
+	{
+		print_error("Invalid file descriptor\n");
+		return (-1);
+	}
 	return (fd);
 }
 
@@ -68,7 +75,7 @@ int	open_file(char *path)
 - check there are only 3 elements
 - check they are within 0-255
 */
-void	handle_rgb(t_data *data, char **split_line, int fd, char *line)
+int	handle_rgb(t_data *data, char **split_line)
 {
 	char	**split_colors;
 	int		i;
@@ -80,9 +87,7 @@ void	handle_rgb(t_data *data, char **split_line, int fd, char *line)
 	split_colors = ft_split(split_line[1], ',');
 	if (!split_colors[0] || !split_colors[1] || !split_colors[2] || \
 		split_colors[3])
-		return (ft_free_split(split_colors), ft_free_split(split_line), \
-				clean_file(data, fd), free(line), \
-				print_error("Wrong color numbers in file"));
+		return (print_error("Wrong color numbers in file\n"), -1);
 	data->elements[i].rgb_letter[0] = ft_rgb_atoi(split_colors[0]);
 	data->elements[i].rgb_letter[1] = ft_rgb_atoi(split_colors[1]);
 	data->elements[i].rgb_letter[2] = ft_rgb_atoi(split_colors[2]);
@@ -91,14 +96,14 @@ void	handle_rgb(t_data *data, char **split_line, int fd, char *line)
 	|| data->elements[i].rgb_letter[2] > 255 \
 	|| data->elements[i].rgb_letter[0] < 0 || data->elements[i].rgb_letter[1] < 0 \
 	|| data->elements[i].rgb_letter[2] < 0)
-		return (ft_free_split(split_colors), ft_free_split(split_line), \
-			clean_file(data, fd), free(line), print_error("Wrong color number"));
+		return (print_error("Wrong color number\n"), -1);
 	ft_free_split(split_colors);
+	return (0);
 }
 
 /*check if paths have already been assigned to our data struct, if not -> assign*/
 
-int	add_path(t_data *data, char **split_line, int fd, char *line)
+int	add_path(t_data *data, char **split_line)
 {
 	if (ft_strncmp(split_line[0], "NO", ft_strlen(split_line[0])) == 0 && !data->elements[0].path)
 		return (data->elements[0].path = ft_strdup(split_line[1]), 0);
@@ -110,13 +115,18 @@ int	add_path(t_data *data, char **split_line, int fd, char *line)
 		return (data->elements[3].path = ft_strdup(split_line[1]), 0);
 	else if ((ft_strncmp(split_line[0], "F", ft_strlen(split_line[0])) == 0 \
 	&& data->elements[4].rgb_letter[0] == -1))
-		handle_rgb(data, split_line, fd, line);
+	{
+		if (handle_rgb(data, split_line) == -1)
+			return (-1);
+	}
 	else if (ft_strncmp(split_line[0], "C", ft_strlen(split_line[0])) == 0 \
 	&& data->elements[5].rgb_letter[0] == -1)
-		handle_rgb(data, split_line, fd, line);
+	{
+		if (handle_rgb(data, split_line) == -1)
+			return (-1);
+	}
 	else
-		return (ft_free_split(split_line), clean_file(data, fd), \
-		free(line), print_error("Wrong id or a duplicate"), -1);
+		return (print_error("Wrong id or a duplicate\n"), -1);
 	return (0);
 }
 
@@ -125,15 +135,16 @@ int	add_path(t_data *data, char **split_line, int fd, char *line)
 - check if it is a map
 - check there are exactly 2 arguments 
 */
-int	check_path(t_data *data, char **split_res, int fd, char *line)
+int	check_path(t_data *data, char **split_res)
 {
 	if (!split_res[0])
 		return (ft_free_split(split_res), 0);
 	if (ft_strchr(split_res[0], '1'))
 		return (ft_free_split(split_res), -1);
 	if (!split_res[1] || split_res[2])
-		return (ft_free_split(split_res), print_error("Wrong elements in file"), -1);
-	add_path(data, split_res, fd, line);
+		return (ft_free_split(split_res), print_error("Wrong elements in file\n"), -1);
+	if (add_path(data, split_res) == -1)
+		return (-1);
 	ft_free_split(split_res);
 	return (0);
 }
@@ -145,7 +156,7 @@ int	check_path(t_data *data, char **split_res, int fd, char *line)
 - check file can be opened and read
 */
 
-void	validate_data(t_data *data, char *line, int fd)
+int	validate_data(t_data *data)
 {
 	int	i;
 	int	check_file;
@@ -154,22 +165,20 @@ void	validate_data(t_data *data, char *line, int fd)
 	while (++i <= 5)
 	{
 		if (i <= 3 && !data->elements[i].path)
-			return (clean_file(data, fd), free(line), \
-				print_error("Missing texture\n"));
-		else if (i <= 3 && check_map_ext(data->elements[i].path, ".xpm"))
-			return (clean_file(data, fd), free(line), \
-				print_error("Wrong file format\n"));
+			return (print_error("Missing texture\n"), -1);
+		else if (i <= 3 && check_ext(data->elements[i].path, ".xpm"))
+			return (print_error("Wrong file format\n"), -1);
 		else if (i >= 4 && data->elements[i].rgb_letter[0] == -1)
-			return (clean_file(data, fd), free(line), print_error("Color is missing!\n"));
+			return (print_error("Color is missing!\n"), -1);
 		else if (i <= 3)
 		{
 			check_file = open(data->elements[i].path, O_RDONLY);
 			if (check_file == -1)
-				print_error("Couldn't open the file\n");
-				//return (clean_file(data, fd), free(line), print_error("Couldn't open the file\n"));
+				return (print_error("Couldn't open the file\n"), -1);
 			close(check_file);
 		}
 	}
+	return (0);
 }
 
 void	init_validate_data(char *path, t_data *data)
@@ -180,15 +189,22 @@ void	init_validate_data(char *path, t_data *data)
 
 	init_elements(data);
 	fd = open_file(path);
+	if (fd == -1)
+		exit(1);
 	line = get_next_line(fd);
 	while (line)
 	{
 		split_result = ft_multi_split(line, " \n");
-		if (check_path(data, split_result, fd, line) == -1)
+		if (check_path(data, split_result) == -1)
 			break ;
 		free(line);
 		line = get_next_line(fd);
 	}
-	validate_data(data, line, fd);
+	if (validate_data(data) == -1)
+	{
+		free(line);
+		clean_file(data, fd);
+		exit(1);
+	}
 	assign_map(data, line, fd);
 }

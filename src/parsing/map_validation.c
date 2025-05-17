@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/09 13:10:30 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 12:02:21 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ bool	map_is_closed(char **map)
 - check there are only characters we expect
 - check amount of players
 */
-void	validate_chars_players(t_data *data, int fd, char *map)
+int	validate_chars_players(char *map)
 {
 	int	i;
 	int	j;
@@ -139,19 +139,17 @@ void	validate_chars_players(t_data *data, int fd, char *map)
 	while (map[i])
 	{
 		if (map[i] == '\n' && map[i + 1] == '\n')
-			return (clean_file(data, fd), free(map), \
-			print_error("Empty line in the middle of map found"));
+			return (print_error("Empty line in the middle of map found"), -1);
 		if (ft_strchr("01 \n", map[i]))
 			i++;
 		else if (ft_strchr("NSEW", map[i]) && ++j)
 			i++;
 		else
-			return (clean_file(data, fd), free(map), \
-			print_error("Unexpected character in map"));
+			return (print_error("Unexpected character in map"), -1);
 	}
 	if (j != 1)
-		return (clean_file(data, fd), free(map), \
-		print_error("Too many or too few players"));
+		return (print_error("Too many or too few players"), -1);
+	return (0);
 }
 
 void	fill_empty_spots(char **map)
@@ -191,7 +189,19 @@ void	assign_map(t_data *data, char *line, int fd)
 	char	*tmp_map;
 	char	**split_map;
 
+	if (!line)
+	{
+		print_error("Empty or invalid map\n");
+		clean_file(data, fd);
+		exit(1);
+	}
 	map = ft_strdup("");
+	if (!map)
+	{
+		print_error("Memory allocation failed\n");
+		close(fd);
+		exit(1);
+	}
 	while (line)
 	{
 		tmp_map = map;
@@ -200,13 +210,23 @@ void	assign_map(t_data *data, char *line, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	validate_chars_players(data, fd, map);
+	if (validate_chars_players(map) == -1)
+	{
+		clean_file(data, fd);
+		free(map);
+		exit(1);
+	}
 	close(fd);
 	split_map = ft_split(map, '\n');
 	free(map);
-	//clean up? and exit?
 	if (!map_is_closed(split_map))
+	{
 		print_error("Map isn't closed!\n");
+		ft_free_split(split_map);
+		data->map = NULL;
+		clean_file(data, -1);
+		exit(1);
+	}
 	fill_empty_spots(split_map);
 	data->map = split_map;
 }

@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/06 15:54:41 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 12:45:04 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,33 @@ int	ft_rgb_atoi(const char *nptr)
 	return (count);
 }
 
-
 void	clean_file(t_data *data, int fd)
 {
 	int		i;
-	char	*line;
-
+	//char	*line;
 	i = -1;
-	while (++i <= 5)
+	while (++i <= 5) {
 		if (data->elements[i].path)
+		{
 			free(data->elements[i].path);
-	line = get_next_line(fd);
-	while (line)
-	{
-		free(line);
-		line = get_next_line(fd);
+			data->elements[i].path = NULL;
+		}	
 	}
+
+			
+	//line = get_next_line(fd);
+	// while (line)
+	// {
+	// 	free(line);
+	// 	line = get_next_line(fd);
+	// }
 	if (fd != -1)
 		close(fd);
 	if (data->map)
+	{
 		ft_free_split(data->map);
+		data->map = NULL;
+	}
 }
 
 int	rgb_to_int(int rgb[3])
