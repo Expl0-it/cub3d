@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 12:02:21 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 14:46:36 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,86 +42,82 @@ int	count_columns(char **arr)
 	return (count);
 }
 
-int	count_rows_for_column(char **arr, int col)
+bool	has_valid_border(char **map)
 {
-	int	row;
+	int	rows;
+	int	cols;
+	int	i;
 
-	row = 0;
-	while (arr[row])
+	rows = count_rows(map);
+	cols = ft_strlen(map[0]);
+	i = 0;
+	while (i < cols)
 	{
-		if (col < 0 || col >= (int)ft_strlen(arr[row]))
-			break ;
-		row++;
+		if (map[0][i] != '1' || map[rows - 1][i] != '1')
+			return (false);
+		i++;
 	}
-	return (row);
+	i = 0;
+	while (i < rows)
+	{
+		if (map[i][0] != '1' || map[i][cols - 1] != '1')
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
-bool	map_open_h(char **map)
+void	pad_map_rows(char **map)
+{
+	int		max_len;
+	int		i;
+	int		k;
+	int		len;
+	char	*new_row;
+
+	max_len = count_columns(map);
+	i = 0;
+	while (map[i])
+	{
+		len = ft_strlen(map[i]);
+		k = 0;
+		while (map[i][k] == ' ')
+			map[i][k++] = '1';
+		if (len < max_len)
+		{
+			new_row = malloc(max_len + 1);
+			if (!new_row)
+			{
+				print_error("Failed to allocate padded row");
+				exit(1);
+			}
+			ft_memcpy(new_row, map[i], len);
+			ft_memset(new_row + len, '1', max_len - len);
+			new_row[max_len] = '\0';
+			free(map[i]);
+			map[i] = new_row;
+		}
+		i++;
+	}
+}
+
+void	replace_spaces_with_walls(char **map)
 {
 	int	i;
 	int	j;
-	int	len;
 
 	i = 0;
-	j = 0;
 	while (map[i])
 	{
-		len = ft_strlen(map[i]) - 1;
 		j = 0;
-		while (map[i][j] == ' ')
+		while (map[i][j])
+		{
+			if (map[i][j] == ' ')
+				map[i][j] = '1';
 			j++;
-		if (map[i][j] != '1' || map[i][len] != '1')
-			return (true);
+		}
 		i++;
 	}
-	return (false);
-}
-
-/*
-- get total number of columns based on the longest row
-- iterate over each of them
-- get 1st and last row for each column
-- skip leading spaces at top
-- check if the first char is 1
-- skip invalid bottom rows
-- skip spaces and \0 at the bottom
-- check if the last char is 1
-*/
-
-bool	map_open_v(char **map)
-{
-	int	f_row;
-	int	l_row;
-	int	columns;
-	int	cur_col;
-
-	columns = count_columns(map);
-	cur_col = 0;
-	while (cur_col < columns)
-	{
-		f_row = 0;
-		l_row = count_rows_for_column(map, cur_col) - 1;
-		while (map[f_row][cur_col] == ' ')
-			f_row++;
-		if (map[f_row][cur_col] != '1')
-			return (true);
-		while (!map[l_row][cur_col])
-			l_row--;
-		while (l_row >= 0
-			&& (map[l_row][cur_col] == ' ' || map[l_row][cur_col] == '\0'))
-			l_row--;
-		if (map[l_row][cur_col] != '1')
-			return (true);
-		cur_col++;
-	}
-	return (false);
-}
-
-bool	map_is_closed(char **map)
-{
-	if (map_open_h(map) || map_open_v(map))
-		return (false);
-	return (true);
 }
 
 /*
@@ -188,6 +184,7 @@ void	assign_map(t_data *data, char *line, int fd)
 	char	*map;
 	char	*tmp_map;
 	char	**split_map;
+	char	**map_copy;
 
 	if (!line)
 	{
@@ -218,12 +215,17 @@ void	assign_map(t_data *data, char *line, int fd)
 	}
 	close(fd);
 	split_map = ft_split(map, '\n');
+	map_copy = ft_split(map, '\n');
 	free(map);
-	if (!map_is_closed(split_map))
+	pad_map_rows(map_copy);
+	replace_spaces_with_walls(map_copy);
+
+	print_map(map_copy);
+	if (!has_valid_border(map_copy))
 	{
-		print_error("Map isn't closed!\n");
+		print_error("Map doesn't have valid borders!\n");
+		ft_free_split(map_copy);
 		ft_free_split(split_map);
-		data->map = NULL;
 		clean_file(data, -1);
 		exit(1);
 	}
