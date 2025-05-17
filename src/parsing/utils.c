@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 15:13:21 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:04:20 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,10 @@ int	add_data_to_game(t_game *game)
 	if (!game->tpaths.north_path || !game->tpaths.south_path ||
 		!game->tpaths.west_path || !game->tpaths.east_path)
 	{
+		free(game->tpaths.north_path);
+		free(game->tpaths.south_path);
+		free(game->tpaths.west_path);
+		free(game->tpaths.east_path);
 		print_error("Memory allocation failed");
 		return (-1);
 	}

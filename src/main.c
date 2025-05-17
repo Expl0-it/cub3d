@@ -64,8 +64,10 @@ int	main(int argc, char **argv)
 	find_player_spawn(&game, &game.player);
 	if (false == game_init(&game)) {
 		print_error("game_init() failed\n");
+		clean_file(&game.data, -1);
 		exit(EXIT_FAILURE);
 	}
 	run(&game);
+	clean_file(&game.data, -1);
 	return (OK);
 }

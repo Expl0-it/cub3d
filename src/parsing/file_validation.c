@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 15:20:31 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 15:48:57 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,14 +138,13 @@ int	add_path(t_data *data, char **split_line)
 int	check_path(t_data *data, char **split_res)
 {
 	if (!split_res[0])
-		return (ft_free_split(split_res), 0);
+		return (0);
 	if (ft_strchr(split_res[0], '1'))
-		return (ft_free_split(split_res), -1);
+		return (1);
 	if (!split_res[1] || split_res[2])
-		return (ft_free_split(split_res), print_error("Wrong elements in file\n"), -1);
+		return (print_error("Wrong elements in file\n"), -1);
 	if (add_path(data, split_res) == -1)
 		return (-1);
-	ft_free_split(split_res);
 	return (0);
 }
 
@@ -195,11 +194,25 @@ void	init_validate_data(char *path, t_data *data)
 	while (line)
 	{
 		split_result = ft_multi_split(line, " \n");
-		if (check_path(data, split_result) == -1)
+		int result = check_path(data, split_result);
+		if (result == -1)
 		{
 			ft_free_split(split_result);
-			break ;
+			free(line);
+			clean_file(data, fd);
+			exit(1);
 		}
+		else if (result == 1)
+		{
+			ft_free_split(split_result);
+			break;
+		}
+		// if (check_path(data, split_result) == -1)
+		// {
+		// 	ft_free_split(split_result);
+		// 	break ;
+		// }
+		ft_free_split(split_result);
 		free(line);
 		line = get_next_line(fd);
 	}

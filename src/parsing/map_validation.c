@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 14:59:26 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:01:45 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,4 +163,5 @@ void	assign_map(t_data *data, char *line, int fd)
 	}
 	fill_empty_spots(split_map);
 	data->map = split_map;
+	ft_free_split(map_copy);
 }
