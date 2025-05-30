@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 10:01:22 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:28:14 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void cleanup_game(t_game *game)
 {
 	clean_file(&game->data, -1);
 	free_game_textures(game);
+	free(game->mlx_s);
+	game->mlx_s = NULL;
 }
 
 int	rgb_to_int(int rgb[3])

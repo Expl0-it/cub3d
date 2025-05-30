@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 10:07:41 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 09:43:14 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 15:43:13 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,11 @@ int	handle_rgb(t_data *data, char **split_line)
 	split_colors = ft_split(split_line[1], ',');
 	if (!split_colors[0] || !split_colors[1] || !split_colors[2] || \
 		split_colors[3])
-		return (print_error("Wrong color numbers in file\n"), -1);
+		{
+			ft_free_split(split_colors);
+			return (print_error("Wrong color numbers in file\n"), -1);
+		}
+		
 	data->elements[i].rgb_letter[0] = ft_rgb_atoi(split_colors[0]);
 	data->elements[i].rgb_letter[1] = ft_rgb_atoi(split_colors[1]);
 	data->elements[i].rgb_letter[2] = ft_rgb_atoi(split_colors[2]);
@@ -96,7 +100,10 @@ int	handle_rgb(t_data *data, char **split_line)
 	|| data->elements[i].rgb_letter[2] > 255 \
 	|| data->elements[i].rgb_letter[0] < 0 || data->elements[i].rgb_letter[1] < 0 \
 	|| data->elements[i].rgb_letter[2] < 0)
+	{
+		ft_free_split(split_colors);
 		return (print_error("Wrong color number\n"), -1);
+	}
 	ft_free_split(split_colors);
 	return (0);
 }
@@ -143,6 +150,7 @@ int	check_path(t_data *data, char **split_res)
 		return (1);
 	if (!split_res[1] || split_res[2])
 		return (print_error("Wrong elements in file\n"), -1);
+		
 	if (add_path(data, split_res) == -1)
 		return (-1);
 	return (0);
@@ -166,21 +174,21 @@ int	validate_data(t_data *data)
 		if (i <= 3 && !data->elements[i].path)
 			return (print_error("Missing texture\n"), -1);
 		else if (i <= 3 && check_ext(data->elements[i].path, ".xpm"))
-			return (print_error("Wrong file format\n"), -1);
+			return (print_error("Wrong texture file format\n"), -1);
 		else if (i >= 4 && data->elements[i].rgb_letter[0] == -1)
 			return (print_error("Color is missing!\n"), -1);
-		else if (i <= 3)
+		else if (i <= 3 && data->elements[i].path)
 		{
 			check_file = open(data->elements[i].path, O_RDONLY);
 			if (check_file == -1)
-				return (print_error("Couldn't open the file\n"), -1);
+				return (print_error("Couldn't open the file\n"), -1);	
 			close(check_file);
 		}
 	}
 	return (0);
 }
 
-void	init_validate_data(char *path, t_data *data)
+void	init_validate_data(char *path, t_data *data, t_game *game)
 {
 	int		fd;
 	char	*line;
@@ -189,7 +197,7 @@ void	init_validate_data(char *path, t_data *data)
 	init_elements(data);
 	fd = open_file(path);
 	if (fd == -1)
-		exit(1);
+		clean_and_exit("Error\n", game);
 	line = get_next_line(fd);
 	while (line)
 	{
@@ -199,8 +207,9 @@ void	init_validate_data(char *path, t_data *data)
 		{
 			ft_free_split(split_result);
 			free(line);
-			clean_file(data, fd);
-			exit(1);
+			clean_and_exit("Error\n", game);
+			// clean_file(data, fd);
+			// exit(1);
 		}
 		else if (result == 1)
 		{
@@ -219,8 +228,8 @@ void	init_validate_data(char *path, t_data *data)
 	if (validate_data(data) == -1)
 	{
 		free(line);
-		clean_file(data, fd);
-		exit(1);
+		clean_and_exit("Error\n", game);
+		//exit(1);
 	}
-	assign_map(data, line, fd);
+	assign_map(data, line, game, fd);
 }

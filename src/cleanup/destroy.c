@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 19:42:00 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/30 10:06:47 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 13:28:22 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	destroy(t_game *game)
 	mlx_destroy_display(game->mlx_s->p_mlx);
 	free(game->mlx_s->p_mlx);
 	cleanup_game(game);
-	free(game->mlx_s);
-	game->mlx_s = NULL;
+	//free(game->mlx_s);
+	//game->mlx_s = NULL;
 	exit(OK);
 }

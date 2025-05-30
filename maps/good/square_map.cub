@@ -1,13 +1,13 @@
-   WE                            textures/dirt01.xpm
-NO      textures/grass01.xpm
+   WE                            ./textures.help/west.xpm
+NO      ./textures.help/north.xpm
 
 
 
-SO textures/grass01.xpm
+SO ./textures.help/south.xpm
 
 F   69,222,199
 
-EA textures/hedge01.xpm
+EA ./textures.help/east.xpm
 
 
 

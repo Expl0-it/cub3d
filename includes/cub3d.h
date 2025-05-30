@@ -170,14 +170,14 @@ typedef struct s_game
 
 //parsing
 void	print_error(char *msg);
-void	clean_and_exit(char *msg, t_data *data, int fd);
+void	clean_and_exit(char *msg, t_game *game);
 int		ft_rgb_atoi(const char *nptr);
 void	clean_file(t_data *data, int fd);
-void	init_validate_data(char *path, t_data *data);
+void	init_validate_data(char *path, t_data *data, t_game *game);
 int		count_columns(char **arr);
 bool	has_valid_border(char **map);
 int		add_data_to_game(t_game *game);
-void	assign_map(t_data *data, char *line, int fd);
+void	assign_map(t_data *data, char *line, t_game *game, int fd);
 void	find_player_spawn(t_game *game, t_player *player);
 void	cleanup_game(t_game *game);
 

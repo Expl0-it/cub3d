@@ -1,6 +1,6 @@
-SO textures/test/south.xpm
-WE textures/test/west.xpm
-EA textures/test/east.xpm
+SO ./textures.help/south.xpm
+WE ./textures.help/west.xpm
+EA ./textures.help/east.xpm
 
 F 20,20,20
 C 200,200,200
