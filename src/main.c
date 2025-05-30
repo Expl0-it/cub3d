@@ -68,6 +68,6 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	run(&game);
-	clean_file(&game.data, -1);
+	//clean_file(&game.data, -1);
 	return (OK);
 }

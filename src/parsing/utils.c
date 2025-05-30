@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 16:04:20 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 10:01:22 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,25 @@ void	clean_file(t_data *data, int fd)
 		ft_free_split(data->map);
 		data->map = NULL;
 	}
+}
+
+void free_game_textures(t_game *game)
+{
+	free(game->tpaths.north_path);
+	free(game->tpaths.south_path);
+	free(game->tpaths.west_path);
+	free(game->tpaths.east_path);
+
+	game->tpaths.north_path = NULL;
+	game->tpaths.south_path = NULL;
+	game->tpaths.west_path = NULL;
+	game->tpaths.east_path = NULL;
+}
+
+void cleanup_game(t_game *game)
+{
+	clean_file(&game->data, -1);
+	free_game_textures(game);
 }
 
 int	rgb_to_int(int rgb[3])

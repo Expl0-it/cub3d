@@ -179,6 +179,7 @@ bool	has_valid_border(char **map);
 int		add_data_to_game(t_game *game);
 void	assign_map(t_data *data, char *line, int fd);
 void	find_player_spawn(t_game *game, t_player *player);
+void	cleanup_game(t_game *game);
 
 //		DECLARATIONS
 //
