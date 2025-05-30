@@ -6,23 +6,11 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 13:34:55 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 14:24:11 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 16:58:49 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_error(char *msg)
-{
-	printf("%s", msg);
-}
-
-void	clean_and_exit(char *msg, t_game *game)
-{
-	print_error(msg);
-	cleanup_game(game);
-	exit(1);
-}
 
 static void	default_player(t_player *player)
 {
@@ -74,7 +62,8 @@ int	main(int argc, char **argv)
 	init_validate_data(argv[1], &game.data, &game);
 	add_data_to_game(&game);
 	find_player_spawn(&game, &game.player);
-	if (false == game_init(&game)) {
+	if (false == game_init(&game))
+	{
 		print_error("game_init() failed\n");
 		cleanup_game(&game);
 		exit(EXIT_FAILURE);

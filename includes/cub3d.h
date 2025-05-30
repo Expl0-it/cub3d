@@ -179,7 +179,20 @@ bool	has_valid_border(char **map);
 int		add_data_to_game(t_game *game);
 void	assign_map(t_data *data, char *line, t_game *game, int fd);
 void	find_player_spawn(t_game *game, t_player *player);
+void	pad_map_rows(char **map);
+int		handle_rgb(t_data *data, char **split_line);
+int		handle_rgb_color(t_data *data, char **split_line);
+void	init_elements(t_data *data);
+int		open_file(char *path);
+char	*build_map_string(int fd, char *line, t_game *game);
+int		check_ext(char *str, char *ext);
+int		check_path(t_data *data, char **split_res);
+void	prepare_and_assign_map(t_data *data, char *map, t_game *game);
+void	fill_empty_spots(char **map);
 void	cleanup_game(t_game *game);
+void	free_game_textures(t_game *game);
+void	validate_map_string(char *map, t_game *game);
+int		validate_chars_players(char *map);
 
 //		DECLARATIONS
 //

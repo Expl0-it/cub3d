@@ -1,6 +1,6 @@
 NAME = cub3d
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz
 IFLAGS = -I ./includes -I ./libftPrintfGnl -I ./minilibx-linux
 RM = rm -fr

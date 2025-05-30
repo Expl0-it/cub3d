@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 14:48:43 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 14:49:41 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:11:41 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,44 @@ bool	has_valid_border(char **map)
 		i++;
 	}
 	return (true);
+}
+
+static void	pad_row(char **map, int i, int max_len)
+{
+	int		len;
+	int		k;
+	char	*new_row;
+
+	len = ft_strlen(map[i]);
+	k = 0;
+	while (map[i][k] == ' ')
+		map[i][k++] = '1';
+	if (len < max_len)
+	{
+		new_row = malloc(max_len + 1);
+		if (!new_row)
+		{
+			print_error("Failed to allocate padded row");
+			exit(1);
+		}
+		ft_memcpy(new_row, map[i], len);
+		ft_memset(new_row + len, '1', max_len - len);
+		new_row[max_len] = '\0';
+		free(map[i]);
+		map[i] = new_row;
+	}
+}
+
+void	pad_map_rows(char **map)
+{
+	int	max_len;
+	int	i;
+
+	max_len = count_columns(map);
+	i = 0;
+	while (map[i])
+	{
+		pad_row(map, i, max_len);
+		i++;
+	}
 }

@@ -6,64 +6,11 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 17:04:52 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 15:48:10 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:41:42 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	pad_map_rows(char **map)
-{
-	int		max_len;
-	int		i;
-	int		k;
-	int		len;
-	char	*new_row;
-
-	max_len = count_columns(map);
-	i = 0;
-	while (map[i])
-	{
-		len = ft_strlen(map[i]);
-		k = 0;
-		while (map[i][k] == ' ')
-			map[i][k++] = '1';
-		if (len < max_len)
-		{
-			new_row = malloc(max_len + 1);
-			if (!new_row)
-			{
-				print_error("Failed to allocate padded row");
-				exit(1);
-			}
-			ft_memcpy(new_row, map[i], len);
-			ft_memset(new_row + len, '1', max_len - len);
-			new_row[max_len] = '\0';
-			free(map[i]);
-			map[i] = new_row;
-		}
-		i++;
-	}
-}
-
-void	replace_spaces_with_walls(char **map)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == ' ')
-				map[i][j] = '1';
-			j++;
-		}
-		i++;
-	}
-}
 
 /*
 - check there is no new line in the middle of the map
@@ -120,12 +67,13 @@ void	fill_empty_spots(char **map)
 
 char	*trim_trailing_newlines(char *str)
 {
-	int	len = ft_strlen(str);
+	int		len;
+	char	*trimmed;
 
+	len = ft_strlen(str);
 	while (len > 0 && (str[len - 1] == '\n' || str[len - 1] == ' '))
 		len--;
-
-	char *trimmed = ft_substr(str, 0, len);
+	trimmed = ft_substr(str, 0, len);
 	free(str);
 	return (trimmed);
 }
@@ -139,43 +87,11 @@ char	*trim_trailing_newlines(char *str)
 void	assign_map(t_data *data, char *line, t_game *game, int fd)
 {
 	char	*map;
-	char	*tmp_map;
-	char	**split_map;
-	char	**map_copy;
 
 	if (!line)
 		clean_and_exit("Empty or invalid map\n", game);
-	map = ft_strdup("");
-	if (!map)
-		clean_and_exit("Memory allocation at assign map has failed\n", game);
-	while (line)
-	{
-		tmp_map = map;
-		map = ft_strjoin(tmp_map, line);
-		free(tmp_map);
-		free(line);
-		line = get_next_line(fd);
-	}
-
+	map = build_map_string(fd, line, game);
 	map = trim_trailing_newlines(map);
-	if (validate_chars_players(map) == -1)
-	{
-		free(map);
-		clean_and_exit("Validation chars has failed\n", game);
-	}
-	close(fd);
-	split_map = ft_split(map, '\n');
-	map_copy = ft_split(map, '\n');
-	free(map);
-	pad_map_rows(map_copy);
-	replace_spaces_with_walls(map_copy);
-	if (!has_valid_border(map_copy))
-	{
-		ft_free_split(map_copy);
-		ft_free_split(split_map);
-		clean_and_exit("Map doesn't have valid borders!\n", game);
-	}
-	fill_empty_spots(split_map);
-	data->map = split_map;
-	ft_free_split(map_copy);
+	validate_map_string(map, game);
+	prepare_and_assign_map(data, map, game);
 }

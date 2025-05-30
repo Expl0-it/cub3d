@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/05 17:43:15 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 13:28:14 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:48:10 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,17 @@ int	ft_rgb_atoi(const char *nptr)
 
 void	clean_file(t_data *data, int fd)
 {
-	int		i;
-	//char	*line;
+	int	i;
+
 	i = -1;
-	while (++i <= 5) {
+	while (++i <= 5)
+	{
 		if (data->elements[i].path)
 		{
 			free(data->elements[i].path);
 			data->elements[i].path = NULL;
-		}	
+		}
 	}
-
-			
-	//line = get_next_line(fd);
-	// while (line)
-	// {
-	// 	free(line);
-	// 	line = get_next_line(fd);
-	// }
 	free_gnl_stash();
 	if (fd != -1)
 		close(fd);
@@ -58,25 +51,16 @@ void	clean_file(t_data *data, int fd)
 	}
 }
 
-void free_game_textures(t_game *game)
+void	free_game_textures(t_game *game)
 {
 	free(game->tpaths.north_path);
 	free(game->tpaths.south_path);
 	free(game->tpaths.west_path);
 	free(game->tpaths.east_path);
-
 	game->tpaths.north_path = NULL;
 	game->tpaths.south_path = NULL;
 	game->tpaths.west_path = NULL;
 	game->tpaths.east_path = NULL;
-}
-
-void cleanup_game(t_game *game)
-{
-	clean_file(&game->data, -1);
-	free_game_textures(game);
-	free(game->mlx_s);
-	game->mlx_s = NULL;
 }
 
 int	rgb_to_int(int rgb[3])
@@ -91,8 +75,8 @@ int	add_data_to_game(t_game *game)
 	game->tpaths.south_path = ft_strdup(game->data.elements[SO].path);
 	game->tpaths.west_path = ft_strdup(game->data.elements[WE].path);
 	game->tpaths.east_path = ft_strdup(game->data.elements[EA].path);
-	if (!game->tpaths.north_path || !game->tpaths.south_path ||
-		!game->tpaths.west_path || !game->tpaths.east_path)
+	if (!game->tpaths.north_path || !game->tpaths.south_path
+		|| !game->tpaths.west_path || !game->tpaths.east_path)
 	{
 		free(game->tpaths.north_path);
 		free(game->tpaths.south_path);

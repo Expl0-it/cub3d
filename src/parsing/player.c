@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 16:38:17 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/16 16:38:18 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:04:12 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static bool	is_spawn_char(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-static void	init_player_position(t_player *player, int x, int y, char spawn_char)
+static void	init_player_pos(t_player *player, int x, int y, char spawn_char)
 {
 	player->x = (x + 0.5f) * BLOCK;
 	player->y = (y + 0.5f) * BLOCK;
@@ -44,7 +44,7 @@ void	find_player_spawn(t_game *game, t_player *player)
 		{
 			if (is_spawn_char(game->map[y][x]))
 			{
-				init_player_position(player, x, y, game->map[y][x]);
+				init_player_pos(player, x, y, game->map[y][x]);
 				return ;
 			}
 			x++;
@@ -54,5 +54,3 @@ void	find_player_spawn(t_game *game, t_player *player)
 	perror("Invalid spawn");
 	exit(1);
 }
-
-
