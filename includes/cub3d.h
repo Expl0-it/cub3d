@@ -180,6 +180,7 @@ int		add_data_to_game(t_game *game);
 void	assign_map(t_data *data, char *line, t_game *game, int fd);
 void	find_player_spawn(t_game *game, t_player *player);
 void	pad_map_rows(char **map);
+bool	is_map_closed(char **map);
 void	init_elements(t_data *data);
 int		open_file(char *path);
 int		check_ext(char *str, char *ext);

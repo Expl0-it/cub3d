@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 14:48:43 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/06/02 13:13:07 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:17:30 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,87 +22,52 @@ static int	count_rows(char **arr)
 	return (i);
 }
 
-static int	count_columns(char **arr)
+static bool	flood_fill(char **map, int x, int y, int rows)
 {
-	int	i;
-	int	j;
-	int	count;
+	bool	up;
+	bool	down;
+	bool	left;
+	bool	right;
 
-	count = 0;
-	i = 0;
-	while (arr[i])
-	{
-		j = 0;
-		while (arr[i][j])
-			j++;
-		if (j > count)
-			count = j;
-		i++;
-	}
-	return (count);
+	if (x < 0 || y < 0 || y >= rows || x >= (int)ft_strlen(map[y]))
+		return (false);
+	if (map[y][x] == ' ')
+		return (false);
+	if (map[y][x] == '1' || map[y][x] == 'V')
+		return (true);
+	map[y][x] = 'V';
+	up = flood_fill(map, x, y - 1, rows);
+	down = flood_fill(map, x, y + 1, rows);
+	left = flood_fill(map, x - 1, y, rows);
+	right = flood_fill(map, x + 1, y, rows);
+	return (up && down && left && right);
 }
 
-static void	pad_row(char **map, int i, int max_len)
+bool	is_map_closed(char **map)
 {
-	int		len;
-	int		k;
-	char	*new_row;
+	int		y;
+	int		x;
+	bool	found;
 
-	len = ft_strlen(map[i]);
-	k = 0;
-	while (map[i][k] == ' ')
-		map[i][k++] = '1';
-	if (len < max_len)
+	y = 0;
+	found = false;
+	while (map[y])
 	{
-		new_row = malloc(max_len + 1);
-		if (!new_row)
+		x = 0;
+		while (map[y][x])
 		{
-			print_error("Failed to allocate padded row");
-			exit(1);
+			if (ft_strchr("NSEW", map[y][x]))
+			{
+				found = true;
+				break ;
+			}
+			x++;
 		}
-		ft_memcpy(new_row, map[i], len);
-		ft_memset(new_row + len, '1', max_len - len);
-		new_row[max_len] = '\0';
-		free(map[i]);
-		map[i] = new_row;
+		if (found)
+			break ;
+		y++;
 	}
-}
-
-void	pad_map_rows(char **map)
-{
-	int	max_len;
-	int	i;
-
-	max_len = count_columns(map);
-	i = 0;
-	while (map[i])
-	{
-		pad_row(map, i, max_len);
-		i++;
-	}
-}
-
-bool	has_valid_border(char **map)
-{
-	int	rows;
-	int	cols;
-	int	i;
-
-	rows = count_rows(map);
-	cols = count_columns(map);
-	i = 0;
-	while (i < cols)
-	{
-		if (map[0][i] != '1' || map[rows - 1][i] != '1')
-			return (false);
-		i++;
-	}
-	i = 0;
-	while (i < rows)
-	{
-		if (map[i][0] != '1' || map[i][cols - 1] != '1')
-			return (false);
-		i++;
-	}
-	return (true);
+	if (!found)
+		return (false);
+	return (flood_fill(map, x, y, count_rows(map)));
 }

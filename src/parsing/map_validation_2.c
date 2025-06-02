@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:10:50 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/06/02 13:14:07 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/02 17:09:48 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,8 @@ void	prepare_and_assign_map(t_data *data, char *map, t_game *game)
 	split_map = ft_split(map, '\n');
 	map_copy = ft_split(map, '\n');
 	free(map);
-	pad_map_rows(map_copy);
 	replace_spaces_with_walls(map_copy);
-	if (!has_valid_border(map_copy))
+	if (is_map_closed(map_copy) == false)
 	{
 		ft_free_split(map_copy);
 		ft_free_split(split_map);
