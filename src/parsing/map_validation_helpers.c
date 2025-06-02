@@ -6,13 +6,13 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/17 14:48:43 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 17:11:41 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/02 13:13:07 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	count_rows(char **arr)
+static int	count_rows(char **arr)
 {
 	int	i;
 
@@ -22,7 +22,7 @@ int	count_rows(char **arr)
 	return (i);
 }
 
-int	count_columns(char **arr)
+static int	count_columns(char **arr)
 {
 	int	i;
 	int	j;
@@ -40,31 +40,6 @@ int	count_columns(char **arr)
 		i++;
 	}
 	return (count);
-}
-
-bool	has_valid_border(char **map)
-{
-	int	rows;
-	int	cols;
-	int	i;
-
-	rows = count_rows(map);
-	cols = count_columns(map);
-	i = 0;
-	while (i < cols)
-	{
-		if (map[0][i] != '1' || map[rows - 1][i] != '1')
-			return (false);
-		i++;
-	}
-	i = 0;
-	while (i < rows)
-	{
-		if (map[i][0] != '1' || map[i][cols - 1] != '1')
-			return (false);
-		i++;
-	}
-	return (true);
 }
 
 static void	pad_row(char **map, int i, int max_len)
@@ -105,4 +80,29 @@ void	pad_map_rows(char **map)
 		pad_row(map, i, max_len);
 		i++;
 	}
+}
+
+bool	has_valid_border(char **map)
+{
+	int	rows;
+	int	cols;
+	int	i;
+
+	rows = count_rows(map);
+	cols = count_columns(map);
+	i = 0;
+	while (i < cols)
+	{
+		if (map[0][i] != '1' || map[rows - 1][i] != '1')
+			return (false);
+		i++;
+	}
+	i = 0;
+	while (i < rows)
+	{
+		if (map[i][0] != '1' || map[i][cols - 1] != '1')
+			return (false);
+		i++;
+	}
+	return (true);
 }

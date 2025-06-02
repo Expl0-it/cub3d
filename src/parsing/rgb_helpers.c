@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file_validation_helpers.c                          :+:      :+:    :+:   */
+/*   rgb_helpers.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/30 17:20:12 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 17:53:23 by mbudkevi         ###   ########.fr       */
+/*   Created: 2025/06/02 12:46:39 by mbudkevi          #+#    #+#             */
+/*   Updated: 2025/06/02 13:16:19 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	handle_rgb(t_data *data, char **split_line)
 	char	**split_colors;
 
 	index = get_rgb_index(split_line);
-	split_colors = ft_split(split_line[1], ',');
+	split_colors = ft_multi_split(split_line[1], " ,");
 	if (validate_rgb_components(split_colors) == -1)
 		return (-1);
 	if (assign_valid_rgb(data, split_colors, index) == -1)
