@@ -6,13 +6,13 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 17:35:31 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 17:49:38 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/02 12:47:35 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	handle_rgb_color(t_data *data, char **split_line)
+static int	handle_rgb_color(t_data *data, char **split_line)
 {
 	if (ft_strncmp(split_line[0], "F", ft_strlen("F")) == 0
 		&& data->elements[4].rgb_letter[0] == -1)
