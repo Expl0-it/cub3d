@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:55:53 by mamichal          #+#    #+#             */
-/*   Updated: 2025/06/16 11:52:49 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:02:00 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	draw_minimap(t_game *game)
 				mapx++;
 				continue ;
 			}
-			draw_minimap_square(game, mapx, mapy, color);
-			mapx++;
+			draw_minimap_square(game, mapx++, mapy, color);
 		}
 		mapy++;
 	}
