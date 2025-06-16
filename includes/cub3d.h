@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:51:40 by mamichal          #+#    #+#             */
-/*   Updated: 2025/06/16 11:56:19 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:21:25 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,7 @@ float		compute_distance(t_player *player, t_ray *ray, float ray_angle);
 //	textures.c
 bool		load_all_textures(t_game *game);
 t_texture	*pick_texture(t_game *game, t_ray *ray);
+void		free_all_textures(t_game *game);
 
 //		cleanup
 //	destroy.c
