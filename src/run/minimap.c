@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 10:55:53 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/09 16:34:23 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:52:49 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static void	draw_minimap_square(t_game *game, int x, int y, int color)
 		j = 0;
 		while (j < MINIMAP_SQ_SIZE)
 		{
-			//here
-			//pixel_put(game->mlx_s->p_mlx, x + 1, y + 1, color);
 			pixel_put(game->mlx_s, x + 1, y + 1, color);
 			j++;
 		}
@@ -60,5 +58,6 @@ void	draw_minimap(t_game *game)
 		}
 		mapy++;
 	}
-	draw_minimap_square(game, game->player.x / BLOCK, game->player.y / BLOCK, 0xFF0000);
+	draw_minimap_square(game, game->player.x / BLOCK,
+		game->player.y / BLOCK, 0xFF0000);
 }

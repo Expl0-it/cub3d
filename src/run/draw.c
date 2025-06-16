@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 11:07:17 by mamichal          #+#    #+#             */
-/*   Updated: 2025/05/09 16:34:16 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:54:10 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,8 @@ void	draw_column(t_game *game, t_texture *texture, int col, t_line *line)
 	while (y < line->end_y)
 	{
 		tex_y = (int)tex_pos & (texture->height - 1);
-		color = *(int *)(texture->data + (tex_y * texture->mlx_val.line_len) + line->texture_x * (texture->mlx_val.bpp / 8));
-		//here
-		//pixel_put(game->mlx_s->p_mlx, col, y, color);
+		color = *(int *)(texture->data + (tex_y * texture->mlx_val.line_len)
+			+ line->texture_x * (texture->mlx_val.bpp / 8));
 		pixel_put(game->mlx_s, col, y, color);
 		tex_pos += step;
 		y++;
