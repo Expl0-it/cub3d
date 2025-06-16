@@ -4,9 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLXFLAGS = -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz
 IFLAGS = -I ./includes -I ./libftPrintfGnl -I ./minilibx-linux
 RM = rm -fr
-#LIBFT_PATH = ./libft
 LIBFTGNL_PATH = ./libftPrintfGnl
-#LIBFT = $(LIBFT_PATH)/libft.a
 LIBFTGNL = $(LIBFTGNL_PATH)/libft.a
 MLX_PATH = ./minilibx-linux
 MLX = $(MLX_PATH)/libmlx_Linux.a
@@ -25,12 +23,8 @@ $(NAME): $(OBJS) $(LIBGTGNL)
 	make -C $(MLX_PATH) all
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
 
-
 ${LIBFTGNL}:
 	make -C ${LIBFTGNL_PATH} all
-
-# $(MLXLIB):
-# 	make -C $(MLX_PATH) all
 
 clean:
 	rm -f $(OBJS)
