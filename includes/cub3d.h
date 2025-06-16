@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/06/16 11:51:40 by mamichal          #+#    #+#             */
+/*   Updated: 2025/06/16 11:51:42 by mamichal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -31,7 +43,7 @@
 # define A 97
 # define D 100
 
-typedef enum	type_id
+typedef enum e_type_id
 {
 	NO,
 	SO,
@@ -39,11 +51,11 @@ typedef enum	type_id
 	EA,
 	F,
 	C
-}	type_id;
+}	t_type_id;
 
-typedef struct	s_element
+typedef struct s_element
 {
-	type_id		element_id;
+	t_type_id		element_id;
 	char		*path;
 	int			rgb_letter[3];
 }	t_element;
@@ -66,7 +78,7 @@ typedef struct s_player
 	t_keys	keys;
 }				t_player;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	t_element	elements[6];
 	char		**map;
@@ -169,67 +181,67 @@ typedef struct s_game
 }				t_game;
 
 //parsing
-void	print_error(char *msg);
-void	clean_and_exit(char *msg, t_game *game);
-int		handle_rgb(t_data *data, char **split_line);
-int		ft_rgb_atoi(const char *nptr);
-void	clean_file(t_data *data, int fd);
-void	init_validate_data(char *path, t_data *data, t_game *game);
-bool	has_valid_border(char **map);
-int		add_data_to_game(t_game *game);
-void	assign_map(t_data *data, char *line, t_game *game, int fd);
-void	find_player_spawn(t_game *game, t_player *player);
-void	pad_map_rows(char **map);
-bool	is_map_closed(char **map);
-void	init_elements(t_data *data);
-int		open_file(char *path);
-int		check_ext(char *str, char *ext);
-int		check_path(t_data *data, char **split_res);
-void	prepare_and_assign_map(t_data *data, char *map, t_game *game);
-void	cleanup_game(t_game *game);
-void	free_game_textures(t_game *game);
+void		print_error(char *msg);
+void		clean_and_exit(char *msg, t_game *game);
+int			handle_rgb(t_data *data, char **split_line);
+int			ft_rgb_atoi(const char *nptr);
+void		clean_file(t_data *data, int fd);
+void		init_validate_data(char *path, t_data *data, t_game *game);
+bool		has_valid_border(char **map);
+int			add_data_to_game(t_game *game);
+void		assign_map(t_data *data, char *line, t_game *game, int fd);
+void		find_player_spawn(t_game *game, t_player *player);
+void		pad_map_rows(char **map);
+bool		is_map_closed(char **map);
+void		init_elements(t_data *data);
+int			open_file(char *path);
+int			check_ext(char *str, char *ext);
+int			check_path(t_data *data, char **split_res);
+void		prepare_and_assign_map(t_data *data, char *map, t_game *game);
+void		cleanup_game(t_game *game);
+void		free_game_textures(t_game *game);
 
 //		DECLARATIONS
 //
 //		init
 //	init.c
-bool	game_init(t_game *game);
+bool		game_init(t_game *game);
 
 //		run
 //	run.c
-void	run(t_game *game);
+void		run(t_game *game);
 //	key_press.c
-int		key_press(int key, t_game *game);
+int			key_press(int key, t_game *game);
 //	key_release.c
-int		key_release(int key, t_game *game);
+int			key_release(int key, t_game *game);
 //	update.c
-int		update(t_game *game);
+int			update(t_game *game);
 //	movement.c
-void	move_player(t_game *game, t_player *player);
-void	rotate_player(t_player *player);
+void		move_player(t_game *game, t_player *player);
+void		rotate_player(t_player *player);
 //	draw.c
-void	pixel_put(t_mlx *mlx, int x, int y, int color);
-void	clear_image(t_game *game);
-void	draw_floor_ceil(t_game *game);
-void	draw_column(t_game *game, t_texture *texture, int col, t_line *line);
+void		pixel_put(t_mlx *mlx, int x, int y, int color);
+void		clear_image(t_game *game);
+void		draw_floor_ceil(t_game *game);
+void		draw_column(t_game *game, t_texture *texture, int col, t_line *line);
 //	minimap.c
-void	draw_minimap(t_game *game);
+void		draw_minimap(t_game *game);
 
 //		raycast
 //	raycast.c
-void	raycast(t_game *game, t_player *player);
+void		raycast(t_game *game, t_player *player);
 //	calc.c
-void	calc_draw_line(t_game *game, t_player *player, \
+void		calc_draw_line(t_game *game, t_player *player, \
 			float ray_angle, int col);
 //	dda.c
-void	dda(t_game *game, t_ray *ray);
-float	compute_distance(t_player *player, t_ray *ray, float ray_angle);
+void		dda(t_game *game, t_ray *ray);
+float		compute_distance(t_player *player, t_ray *ray, float ray_angle);
 //	textures.c
-bool	load_all_textures(t_game *game);
+bool		load_all_textures(t_game *game);
 t_texture	*pick_texture(t_game *game, t_ray *ray);
 
 //		cleanup
 //	destroy.c
-int		destroy(t_game *game);
+int			destroy(t_game *game);
 
 #endif
