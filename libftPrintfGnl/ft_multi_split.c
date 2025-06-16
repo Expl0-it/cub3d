@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:25:31 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/06/16 12:01:42 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:14:44 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static char	*ft_putword(char const *s, int start, int len)
 	return (word);
 }
 
-static char	**ft_split_words(char *s, char *delim, char **s2, int num_words)
+static char	**ft_split_words(char const *s, char *del, char **s2, int num_words)
 {
 	int	i;
 	int	word;
@@ -73,10 +73,10 @@ static char	**ft_split_words(char *s, char *delim, char **s2, int num_words)
 	word = 0;
 	while (word < num_words)
 	{
-		while (s[i] && is_delim(s[i], delim))
+		while (s[i] && is_delim(s[i], del))
 			i++;
 		start = i;
-		while (s[i] && !is_delim(s[i], delim))
+		while (s[i] && !is_delim(s[i], del))
 			i++;
 		word_len = i - start;
 		s2[word] = ft_putword(s, start, word_len);

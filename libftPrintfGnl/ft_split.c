@@ -6,22 +6,11 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 09:33:40 by mbudkevi          #+#    #+#             */
-/*   Updated: 2024/05/23 16:43:05 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:12:44 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	**free_array(char **ptr, int i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(ptr[i]);
-	}
-	free(ptr);
-	return (0);
-}
 
 static int	ft_count_words(char const *str, char c)
 {
