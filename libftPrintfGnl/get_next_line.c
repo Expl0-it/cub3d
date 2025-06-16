@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 17:04:16 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 15:15:46 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:58:21 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	**get_stash_reference(void)
 {
 	static char	*stash = NULL;
+
 	return (&stash);
 }
 
@@ -82,8 +83,9 @@ char	*get_next_line(int fd)
 
 void	free_gnl_stash(void)
 {
-	char **stash = get_stash_reference();
+	char	**stash;
 
+	stash = get_stash_reference();
 	if (stash && *stash)
 	{
 		free(*stash);

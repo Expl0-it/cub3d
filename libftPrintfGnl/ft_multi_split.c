@@ -6,22 +6,11 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 15:25:31 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/30 15:31:26 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:01:42 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static char	**free_array(char **ptr, int i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(ptr[i]);
-	}
-	free(ptr);
-	return (0);
-}
 
 static int	is_delim(char c, char *delim)
 {
@@ -73,7 +62,7 @@ static char	*ft_putword(char const *s, int start, int len)
 	return (word);
 }
 
-static char	**ft_split_words(char const *s, char *delim, char **s2, int num_words)
+static char	**ft_split_words(char *s, char *delim, char **s2, int num_words)
 {
 	int	i;
 	int	word;

@@ -6,7 +6,7 @@
 /*   By: mbudkevi <mbudkevi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/28 12:07:07 by mbudkevi          #+#    #+#             */
-/*   Updated: 2025/05/17 15:12:11 by mbudkevi         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:01:00 by mbudkevi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ char	**get_stash_reference(void);
 char	*get_next_line(int fd);
 char	**ft_multi_split(char const *s, char *delim);
 void	ft_free_split(char **splitted);
+char	**free_array(char **ptr, int i);
 
 #endif
