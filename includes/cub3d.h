@@ -6,7 +6,7 @@
 /*   By: mamichal <mamichal@student.42warsaw.pl>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:51:40 by mamichal          #+#    #+#             */
-/*   Updated: 2025/06/16 11:51:42 by mamichal         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:56:19 by mamichal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef enum e_type_id
 typedef struct s_element
 {
 	t_type_id		element_id;
-	char		*path;
-	int			rgb_letter[3];
+	char			*path;
+	int				rgb_letter[3];
 }	t_element;
 
 typedef struct s_keys
@@ -223,7 +223,8 @@ void		rotate_player(t_player *player);
 void		pixel_put(t_mlx *mlx, int x, int y, int color);
 void		clear_image(t_game *game);
 void		draw_floor_ceil(t_game *game);
-void		draw_column(t_game *game, t_texture *texture, int col, t_line *line);
+void		draw_column(t_game *game, t_texture *texture,
+				int col, t_line *line);
 //	minimap.c
 void		draw_minimap(t_game *game);
 
