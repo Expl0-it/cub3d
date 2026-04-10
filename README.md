@@ -2,6 +2,9 @@
 
 A graphical programming project developed as part of the **42 School curriculum**, focused on building a simple **3D game engine** using **raycasting techniques** inspired by classic games like *Wolfenstein 3D*.
 
+![cub1](./img/cub1.png)
+![cub2](./img/cub2.png)
+
 ---
 
 ## 📖 Overview
@@ -153,7 +156,7 @@ Movement and rotation simulate a real first-person experience.
 * C compiler
 * X11 display server
 
-### To build the project:
+### To build the project
 
 ```bash id="cbbuild1"
 make
